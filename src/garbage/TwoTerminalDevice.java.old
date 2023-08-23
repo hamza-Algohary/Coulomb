@@ -1,0 +1,18 @@
+package circuitsimulator.devices;
+
+import circuitsimulator.Device;
+import graphics.Point;
+
+public class TwoTerminalDevice extends Device{
+    public String start = "" , end = "";
+    @Override
+    public boolean hasTwoTerminals(){
+        return true;
+    }
+    public Point start(){
+        return new Point(start);
+    }
+    public Point end(){
+        return new Point(end);
+    }
+}

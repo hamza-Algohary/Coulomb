@@ -1,0 +1,16 @@
+package gui;
+
+import graphics.Point;
+
+public class Transformation{
+    public double angle = 0;
+    public double scale = 1;
+    public Transformation(double scale , double angle){
+        this.scale = scale;
+        this.angle = angle;
+    }
+    public Transformation(Point start , Point end){
+        this.scale = end.relativeTo(start).length();
+        this.angle = end.relativeTo(start).angle();
+    }
+}  

@@ -1,0 +1,120 @@
+package circuitsimulator;
+
+//import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+import circuitsimulator.devices.*;
+
+public class Main{
+    public static void main(String[] args) throws Exception{
+         /*
+        Variable v1 = new Variable("x", 1);
+        Variable v2 = new Variable("y", -1);
+        Equation equation1 = new Equation();
+        equation1.vars.add(v1);
+        equation1.vars.add(v2);
+        
+        Equation equation2 = new Equation();
+        equation2.vars.add(new Variable("x", 2));
+        equation2.vars.add(new Variable("y", -1));
+        equation2.constant = 5;
+
+        Equations system = new Equations(equation1);
+        system.add(equation2);
+        //System.out.println("Solvable? : " + system.isSolvable());
+        var vars = system.solve();
+        for(var v : vars.keySet()){
+            System.out.println(v + " = " + vars.get(v));
+        }*/
+        //SimpleMatrix A = new SimpleMatrix();
+        
+        CircuitSimulator simulator = new CircuitSimulator();
+        simulator.addDevice(new ACVoltageSource("1", "2", 100 , 50));
+        simulator.addDevice(new Resistance("2", "3", 5));
+        simulator.addDevice(new Resistance("3", "4", 5));
+        simulator.addDevice(new Inductor("4", "1", 10e-3));
+        /* 
+        simulator.addDevice(new Battery("1", "2", 5));
+        simulator.addDevice(new Battery("5", "4", 5));
+        simulator.addDevice(new Resistance("2", "3", 5));
+        simulator.addDevice(new Resistance("4", "3", 5));
+        simulator.addDevice(new BJT("3" , "1" , "5" , 0.99 , BJT_TYPE.PNP));
+        */
+
+
+        /* 
+        simulator.addDevice(new ACVoltageSource("1" , "2" , 50 , 60));
+        //simulator.addDevice(new Battery("1", "2" , 1000));
+        simulator.addDevice(new Resistance("2" , "3" , 5));
+        simulator.addDevice(new Resistance("3" , "4" , 5));
+        //simulator.addDevice(new Resistance("4" , "1" , 1));
+        
+        //simulator.addDevice(new Capacitor("4" , "1" , 0.0001));
+        simulator.addDevice(new ZenerDiode("4", "1", 5 , 18));
+        */
+        //simulator.addDevice(new Diode("1", "4", 0.7));
+        //var diode = new Diode("4", "1" , 5);
+        //diode.setSaturationCurrent(10);
+        //simulator.addDevice(diode);
+        //var mydiode = new Diode("4", "1", 18);
+        //simulator.addDevice(mydiode);
+        //System.out.println(mydiode.saturationCurrent());
+        //System.out.println(1d/(Double.MIN_VALUE*1e50));
+        //Scanner scanner = new Scanner(System.in);
+        //scanner.next();
+        //scanner.close();        
+        //simulator.addDevice(new Diode("1" , "4" , 10));
+        /*System.out.println(diode.saturationCurrent());
+        System.out.println(diode.forwardVoltage());
+
+        //simulator.addDevice(new Battery("4" , "1" , -20));
+        //simulator.addDevice(new DependentCurrentSource("10", "20", new Variable("V2", 1d)));
+        /*
+        simulator.addDevice(new Battery("10", "20", 15));
+        simulator.addDevice(new Resistance("10", "20", 15));
+        simulator.addDevice(new Resistance("20" , "30" , 5));
+        simulator.addDevice(new Resistance("30" , "40" , 5));
+        simulator.addDevice(new Resistance("40" , "10" , 5));
+        */
+        /*
+        for(var v : simulator.data.keySet()){
+            System.out.println(v + " = " + simulator.data.get(v));
+        }
+        */
+        int sample_frequency = 100;
+        double sleep_ms = 0.0010;
+        long counter = 0;  
+        I_Chart2D chart = new I_Chart2D();    
+        do{
+            simulator.tick();
+            if(counter%sample_frequency==0){
+                simulator.tick();
+                double v = simulator.data.get("I1");
+                double time = simulator.clock.getSeconds();
+                chart.addPoint(time , v);
+
+                //System.out.println(time + "s = " + v);
+                // Plot.
+                /*for(int i=0 ; i<monitoredIComponents.size() ; i++){
+                    io[i].addPoint(simulator.currentTime_ms, monitoredIComponents.get(i).getI());
+                }
+                for(int i=0 ; i<monitoredVComponents.size() ; i++){
+                    vo[i].addPoint(simulator.currentTime_ms, monitoredVComponents.get(i).getV());
+                }*/
+                //System.out.println(simulator.currentTime_ms);
+                
+            }
+            //System.out.println("V1 = " + simulator.data.get("V1"));
+            //System.out.println("V2 = " + simulator.data.get("V2"));
+            //System.out.println("V3 = " + simulator.data.get("V3"));
+            //System.out.println("V4 = " + simulator.data.get("V4"));
+            //System.out.println("================================");
+            //System.out.println("IE = " + simulator.data.get("I0"));
+            //System.out.println("IC = " + simulator.data.get("I1"));
+
+            TimeUnit.MICROSECONDS.sleep((int)(sleep_ms*1000));
+            counter++;
+        }while(true);
+        
+    }
+}

@@ -1,0 +1,7 @@
+package gui;
+
+import ch.bailu.gtk.cairo.Context;
+
+public interface Drawable {
+    public void draw(Context context);
+}

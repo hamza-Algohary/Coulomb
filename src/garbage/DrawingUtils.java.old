@@ -1,0 +1,128 @@
+package gui;
+
+import ch.bailu.gtk.cairo.Cairo;
+import ch.bailu.gtk.cairo.Context;
+import ch.bailu.gtk.cairo.Format;
+import ch.bailu.gtk.gdk.Gdk;
+import ch.bailu.gtk.gdkpixbuf.Colorspace;
+import ch.bailu.gtk.gdkpixbuf.Pixbuf;
+import graphics.Color;
+import graphics.Point;
+
+public class DrawingUtils {
+    public static void circle(Context context , Point center, double radius) {
+        //center = center.transform(transformation);
+        context.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+    }
+
+    //public static void halfCircle(Context context , Point center, double radius) {
+    //    //center = center.transform(transformation);
+    //    context.arc(center.x, center.y, radius, 0, Math.PI);
+    //}
+
+    public static void wave(Context context , Point start, Point end) {
+        //start = start.transform(transformation);
+        //end = end.transform(transformation);
+        double angle = end.relativeTo(start).angle();
+        var mid = Point.mid(start, end);
+
+        var c1 = Point.mid(start, mid);
+        var c2 = Point.mid(mid, end);
+
+        double radius = mid.relativeTo(start).length();
+
+        context.arc(c1.x, c1.y, radius, angle, angle+Math.PI);
+        context.arc(c2.x, c2.y, radius, angle+Math.PI, angle + 2 * Math.PI);
+    }
+
+    public static void node(Context context , Point point) {
+        //point = point.transform(transformation);
+        circle(context , point, Color.LINE_WIDTH);
+        context.fill();
+    }
+
+
+    // Copied from https://stackoverflow.com/questions/57924551/arrow-in-pycairo with some modifications.
+    public static void directedArrow(Context context , Point start , Point end){
+        //start = start.transform(transformation);
+        //end = end.transform(transformation);
+
+        var arrow_length = end.relativeTo(start).length();//0.45;
+        var arrow_angle = end.relativeTo(start).angle(); //Math.PI/4;
+        var arrowhead_angle = Math.PI/6;
+        var arrowhead_length = 0.3;
+
+        var center = Point.mid(start, end);
+        context.moveTo(center.x, center.y); // move to center of canvas
+
+        context.lineTo(arrow_length * Math.cos(arrow_angle), arrow_length * Math.sin(arrow_angle));
+        context.moveTo(-arrowhead_length * Math.cos(arrow_angle - arrowhead_angle), -arrowhead_length * Math.sin(arrow_angle - arrowhead_angle));
+        context.lineTo(arrowhead_length * Math.cos(arrow_angle - arrowhead_angle), arrowhead_length * Math.sin(arrow_angle - arrowhead_angle));
+        context.lineTo(-arrowhead_length * Math.cos(arrow_angle + arrowhead_angle), -arrowhead_length * Math.sin(arrow_angle + arrowhead_angle));
+    }
+
+    public static void arrow(Context context , Point start , Point end){
+        line(context , start , end);
+    }
+
+    public static void line(Context context , Point start , Point end){
+        context.moveTo(start.x, start.y);
+        context.lineTo(end.x, end.y);
+    }
+
+    public static void triangle(Context context , Point v1 , Point v2 , Point v3){
+        line(context, v1, v2);
+        line(context, v2, v3);
+        line(context, v3, v1);
+    }
+    public static void polygon(Context context , Point v1 , Point v2 , Point v3 , Point v4){
+        line(context, v1, v2);
+        line(context, v2, v3);
+        line(context, v3, v4);
+        line(context, v4, v1);
+    }
+    public static void curve(Context context , Point p1 , Point p2 , Point p3){
+        context.curveTo(p1.x, p1.y, p2.x , p2.y, p3.x, p3.y);
+    }
+    public static void setSource(Context context , Color color){
+        context.setSourceRgba(color.red, color.green, color.blue, color.alpha);
+    }
+    public static void coil(Context context , Point start , Point end){
+
+    }
+    public static void solenoid(Context context , Point start , Point end){
+
+    }
+    public static void imageWithAngle(Context context , String name , Point start , int size , double angle){
+        Pixbuf pixbuf = new Pixbuf(Colorspace.RGB, false, 32, 150, 150);
+        try{pixbuf = Pixbuf.newFromFileAtScalePixbuf(name, size, size, true);}
+        catch(Exception e){System.out.println("Couldn't find image: " + name);}
+        var surface = Cairo.imageSurfaceCreate(Format.ARGB32, size, size);
+        var tempContext = surface.createContext();
+        Gdk.cairoSetSourcePixbuf(tempContext , pixbuf , 0 , 0);
+        tempContext.rotate(angle);
+
+        context.setSourceSurface(surface, start.x, start.y);
+        context.paint();
+    }
+
+    public static void drawComponent(Context context , Object device){
+    }
+
+    public static boolean containsPoints(Point start , Point end , Point mouse){
+        double angle = -end.relativeTo(start).angle();
+        end = end.rotate(angle);
+        mouse = mouse.rotate(angle);
+        return getSquare(start, end).contains(mouse);
+    }
+    public static Square getSquare(Point start  , Point end){
+        double length = end.relativeTo(start).length();
+        //double angle = end.relativeTo(start).angle();
+
+        double yup = -Color.COMPONENT_MAX_SIZE/2;
+        double ydown = Color.COMPONENT_MAX_SIZE/2;
+        double xmin = Math.min((length-Color.COMPONENT_MAX_SIZE)/2d , 0);
+        double xmax = Math.max(xmin+Color.COMPONENT_MAX_SIZE , length);
+        return new Square(new Point (xmin , yup ) , new Point (xmax , ydown));
+    }
+}

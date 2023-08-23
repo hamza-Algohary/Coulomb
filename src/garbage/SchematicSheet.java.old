@@ -1,0 +1,216 @@
+package gui;
+
+
+import ch.bailu.gtk.cairo.Surface;
+import ch.bailu.gtk.gdk.GdkConstants;
+import ch.bailu.gtk.glib.Glib;
+import ch.bailu.gtk.gtk.DrawingArea;
+import ch.bailu.gtk.gtk.GestureDrag;
+import circuitsimulator.CircuitSimulator;
+import circuitsimulator.Device;
+import circuitsimulator.devices.ACCurrentSource;
+import circuitsimulator.devices.ACVoltageSource;
+import circuitsimulator.devices.BJT;
+import circuitsimulator.devices.Battery;
+import circuitsimulator.devices.Capacitor;
+import circuitsimulator.devices.Constants;
+import circuitsimulator.devices.CurrentSource;
+import circuitsimulator.devices.Diode;
+import circuitsimulator.devices.Inductor;
+import circuitsimulator.devices.Resistance;
+//import circuitsimulator.devices.TwoTerminalDevice;
+import circuitsimulator.devices.Wire;
+import circuitsimulator.devices.ZenerDiode;
+import graphics.Point;
+
+/* 
+ * https://docs.gtk.org/gtk4/getting_started.html
+ */
+public class SchematicSheet extends DrawingArea{
+    //private double startX = 0d;
+    //private double startY = 0d;
+
+    private Surface surface;
+    CircuitSimulator circuitSimulator = new CircuitSimulator();
+    Device selectedDevice;
+    Device hoveredDevice;
+    Integer selectedTerminal = null;
+    IconSelector selector;
+    Point startNode;
+    Point endNode;
+
+
+    private boolean contains(Device device){
+        for(int i=0 ; i<device.getNumberOfTerminals() ; i++){
+            return false;
+        }
+        return false;
+    }
+    private void processHovered(Point mouse){
+        if(hoveredDevice == null){
+            //return contains( devices , mouse)
+        }//else if hovered.contains == false{
+            //return hoveredDevice;
+        //}else
+        //return devs.match(point)
+    }
+    enum Mode{
+        ADD,
+        EDIT
+    }
+
+
+    public int nodeStep = 5; //5px
+    public int approximate(double point){
+        int pixel = (int)point;
+        int remainder = pixel%nodeStep;
+        if(remainder>3)
+            return pixel;
+        return pixel+1;
+    }
+
+    public Point pixelToNode(Point point){
+        return new Point(approximate(point.x), approximate(point.y));
+    }
+
+    
+
+    /*
+     * Rotating by 90 degrees:
+     * When you rotate by 90 degrees, 
+     * you take your original X and Y, 
+     * swap them, and make Y negative. 
+     * So from 0 degrees you take (x, y), swap them,
+     * and make y negative (-y, x) 
+     * and then you have made a 90 degree rotation.
+     */
+
+    public Mode getMode(){
+        if(selector.getSelected()==null)
+            return Mode.EDIT;
+        return Mode.ADD;
+    }
+
+    public Device getDevice(){
+        switch(selector.getSelected()){
+            case Constants.AC_I:
+                return new ACCurrentSource("", "", 50, 16);
+            case Constants.AC_V:
+                return new ACVoltageSource("", "", 50, 220);
+            case Constants.V:
+                return new Battery("", "", 12);
+            case Constants.BJT_NPN:
+                return new BJT("" , "","", 0.99 , BJT.BJT_TYPE.NPN);
+            case Constants.BJT_PNP:
+                return new BJT("" , "","", 0.99 , BJT.BJT_TYPE.PNP);
+            case Constants.C:
+                return new Capacitor("", "", 0.00001);
+            case Constants.I:
+                return new CurrentSource("", "", 5);
+            case Constants.D:
+                return new Diode("", "" , 0.7);
+            case Constants.F:
+                return new Wire("" , "");
+            case Constants.G:
+                return new Wire("" , "");
+            case Constants.L:
+                return new Inductor("", "", 0.001);
+            case Constants.LED:
+                return new Diode("","",0.7);
+            case Constants.R:
+                return new Resistance("" , "" , 1000);
+            case Constants.SWITCH:
+                return new Wire("","");
+            case Constants.W :
+                return new Wire("","");
+            case Constants.ZD:
+                return new ZenerDiode("", "", 0.7, 10);
+        }
+        System.out.println("Returning NULL.");
+        return null;
+    }
+
+    public SchematicSheet(IconSelector selector){
+        this.selector = selector;
+        this.setDrawFunc((cb, self, context, width, height, userData) -> {
+            //context.setSourceSurface(surface, 0, 0);
+            //context.paint();
+            context.setSourceRgba(1, 1, 1, 1);
+            context.paint();
+            
+            for(var d : circuitSimulator.circuit){
+                //var device = (TwoTerminalDevice) d;
+                
+                //Point point = new Point(device);
+                //new BiterminaledComponent(device.start(), device.end() , "build/graphics/icons/"+Constants.R+".svg").draw(context);;
+            }
+        }, null, (cb, data) -> {
+            //System.out.println("onDestroyNotify()");
+            this.unregisterCallbacks();
+        });
+
+        this.onResize((width, height) -> {
+            if (surface != null)
+                surface.destroy();
+            surface = this.getNative().getSurface().createSimilarSurface(0, width, height);
+            this.queueDraw();
+            //clearSurface();
+        });     
+        
+        var drag = new GestureDrag();
+        drag.setButton(GdkConstants.BUTTON_PRIMARY);
+        this.addController(drag);
+
+        drag.onDragBegin((x, y) -> {
+            //startNode = new Point(x, y);
+            selectedDevice = getDevice();
+            circuitSimulator.addDevice(selectedDevice);
+            //( (TwoTerminalDevice) selectedDevice ).start = (int)x+","+(int)y;
+            this.queueDraw();
+            System.out.println("begin");
+            //selectedDevice.setTerminalByNumber(0, Integer.toString((int)x)+","+y);
+        });
+        drag.onDragUpdate((x , y)->{
+            //selectedDevice.setTerminalByNumber(1, Integer.toString((int)x)+","+y);
+            //( (TwoTerminalDevice) selectedDevice ).end = (int)x+","+(int)y;
+            this.queueDraw();
+            System.out.println("update");
+
+        });
+        drag.onDragEnd((x , y)->{
+            //selectedDevice.setTerminalByNumber(1, Integer.toString((int)x)+","+y);
+            //( (TwoTerminalDevice) selectedDevice ).end = (int)x+","+(int)y;
+            this.queueDraw();
+            System.out.println("end");
+        });
+        //drag.onDragUpdate((x, y) -> {drawBrush( startX + x, startY + y);System.out.println("Drag update;");});
+        //drag.onDragEnd((x, y) -> {drawBrush( startX + x, startY + y);System.out.println("Drag end");});
+        /* 
+        var press = new GestureClick();
+        press.setButton(GdkConstants.BUTTON_SECONDARY);
+        this.addController(press);
+
+        press.onPressed((n_press, x, y) -> {
+            System.out.println("pressed");
+            //clearSurface();
+            //this.queueDraw();
+        });
+        */
+    }
+    /* 
+    private void clearSurface() {
+        var cr = surface.createContext();
+        cr.setSourceRgba(1, 1, 1 , 0);
+        cr.paint();
+        cr.destroy();
+    }
+
+    private void drawBrush( double x, double y) {
+        var cr = surface.createContext();
+        cr.rectangle(x - 3, y - 3, 6, 6);
+        cr.fill();
+        cr.destroy();
+        this.queueDraw();
+    }
+    */
+}

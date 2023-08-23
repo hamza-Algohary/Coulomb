@@ -1,0 +1,17 @@
+package gui;
+
+import graphics.Point;
+
+public class Square {
+    Point start , end;
+    public Square(Point start, Point end) {
+        this.start = start;
+        this.end = end;
+    }
+    public boolean contains(Point point){
+        return point.x > start.x 
+            && point.x < end.x 
+            && point.y < start.y 
+            && point.y > end.y;
+    }
+}

@@ -1,0 +1,85 @@
+package circuitsimulator;
+
+import algebra.Equation;
+import algebra.Equations;
+import algebra.Variable;
+import circuitsimulator.devices.Diode;
+
+public class BJT extends Device{
+    public String emitterTerminal = "" , baseTerminal = "" , collectorTerminal = "";
+    private String centerTerminal = "";
+    int beta = 0;
+    Diode BE_junction;
+    public static enum BJT_TYPE{
+        NPN,
+        PNP
+    }
+    BJT_TYPE type = BJT_TYPE.NPN;
+    public BJT(String emitterTerminal, String baseTerminal, String collectorTerminal, int beta , BJT_TYPE type) {
+        this.id = newId();
+        this.emitterTerminal = emitterTerminal;
+        this.baseTerminal = baseTerminal;
+        this.collectorTerminal = collectorTerminal;
+        this.beta = beta;
+        this.centerTerminal = "BJT" + this.id + "center";
+        switch(type){
+            case NPN:
+                this.BE_junction = new Diode(baseTerminal, emitterTerminal, 0.7);
+                break;
+            case PNP:
+                this.BE_junction = new Diode(emitterTerminal, baseTerminal, 0.7);
+                break;
+            default:
+                break;
+            
+        }
+        this.BE_junction.id =  this.id + "e";
+        circuitSimulator.circuit.addCurrentFrom(centerTerminal, Ic());
+        circuitSimulator.circuit.addCurrentFrom(centerTerminal, Ib());
+
+        circuitSimulator.circuit.addCurrentTo(collectorTerminal, Ic());
+        circuitSimulator.circuit.addCurrentTo(baseTerminal, Ib());
+        
+        
+    }
+    public String Ie(){
+        return this.BE_junction.I();
+    }
+    public String Ib(){
+        return I() + " b";
+    }
+    public String Ic(){
+        return I() + " c";
+    }
+
+    public Equation betaEquation(){
+        Equation equation = new Equation();
+        equation.constant = 0;
+        equation.vars.add(new Variable(Ic() , 1));
+        equation.vars.add(new Variable(Ib() , -beta));
+        return equation;
+    }
+
+    @Override 
+    public boolean isLinear(){
+        return false;
+    }
+
+    @Override
+    public Equations getActiveEquations(){
+        Equations equations = new Equations();
+        equations.addAll(BE_junction.getActiveEquations());
+        equations.add(betaEquation());
+        return equations;
+    };
+
+    @Override
+    public Equations getTestingEquations(){
+        Equations equations = new Equations();
+        equations.addAll(BE_junction.getTestingEquations());
+        equations.add(betaEquation());
+        return equations;
+    };
+
+    
+}

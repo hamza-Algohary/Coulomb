@@ -1,0 +1,42 @@
+package gui;
+
+import ch.bailu.gtk.cairo.Context;
+import ch.bailu.gtk.cairo.LineCap;
+import graphics.Color;
+import graphics.Point;
+
+public class BiterminaledComponent implements Drawable{
+    Point start , end;
+    String imagepath = "";
+    public BiterminaledComponent(Point start, Point end, String imagepath) {
+        this.start = start;
+        this.end = end;
+        this.imagepath = imagepath;
+    }
+
+    @Override public void draw(Context context){
+        double length = end.relativeTo(start).length();
+        double angle = end.relativeTo(start).angle();
+
+        double yup = -Color.COMPONENT_MAX_SIZE/2;
+        //double ydown = Color.COMPONENT_MAX_SIZE/2;
+        double xmin = Math.max((length-Color.COMPONENT_MAX_SIZE)/2d , 0);
+        double xmax = Math.min(xmin+Color.COMPONENT_MAX_SIZE , length);
+
+        //Rotate then offset
+        //Point endTerminal = new Point(length , 0).rotate(angle).add(start);
+        Point componentStart = new Point(xmin , yup).rotate(angle).add(start);
+        Point t11 = new Point(xmin , 0).rotate(angle).add(start);
+        Point t22 = new Point(xmax , 0).rotate(angle).add(start);
+
+        DrawingUtils.setSource(context, Color.FOREGROUND_COLOR);
+        context.setLineWidth(Color.LINE_WIDTH);
+        context.setLineCap(LineCap.ROUND);
+
+        DrawingUtils.line(context, start, t11);
+        DrawingUtils.line(context, t22, end);
+        context.stroke();
+
+        DrawingUtils.imageWithAngle(context, imagepath, componentStart, (int) (xmax - xmin)  , angle);
+    }
+}
