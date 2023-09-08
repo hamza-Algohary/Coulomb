@@ -1,5 +1,5 @@
 # Coulomb
-Coulomb is a powerful and simple circuit simulator written with Java and Gtk4.
+Coulomb is a powerful and simple circuit simulator written with Java and Gtk4 + libadwaita.
 <br/><br/>
 ![](screenshots/screenshot1.png)
 ## Devices
