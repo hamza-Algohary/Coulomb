@@ -1,0 +1,5 @@
+Untitled Circuit
+w.Wire 345,270 195,270
+r.Resistor 195,120 345,120 5.0
+acv.ACVoltageSource 195,270 195,120 24.0 50.0
+led.LED 345,120 345,270 v i

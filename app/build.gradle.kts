@@ -13,6 +13,7 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -23,6 +24,10 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    implementation("com.github.bailuk:java-gtk:0.5.0")
+    implementation("org.ejml:ejml-all:0.43")
+    //compile group: 'org.ejml', name: 'ejml-all', version: '0.43'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -34,7 +39,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("coulomb.Main")
+    mainClass.set("Main")
 }
 
 tasks.named<Test>("test") {

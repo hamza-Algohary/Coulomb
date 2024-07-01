@@ -1,0 +1,5 @@
+Untitled Circuit
+acv.ACVoltageSource 255,315 255,165 24.0 50.0
+dz.ZenerDiode 390,165 390,315 10.0 v i
+r.Resistor 255,165 390,165 5.0
+w.Wire 255,315 390,315
