@@ -52,6 +52,5 @@ cd Coulomb
 ```
 
 ## License
-Distributed under the GPLv3 License.
-
+Coulomb is released under the terms of the GNU General Public License v3
 <!--## Acknowledgments-->
