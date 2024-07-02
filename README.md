@@ -16,14 +16,14 @@
 ![](screenshots/rlc.png)
 ![](screenshots/zener-light.png)
 
-### Features
+## Features
 - Draw arbitrary circuits
 - Plot voltage and current of devices against time
 - Save/Load circuits
 - Dark Mode support
 - Beautiful UI using libadwaita
 
-### Available Devices
+## Available Devices
 - Resistor
 - Battery
 - Current Source
@@ -33,10 +33,10 @@
 - Diode
 - Zener Diode
 
-### Problems
+## Problems
 1. Circuits containing non-linear devices will most probably not be solvable, because the current backend is not good at dealing with non-linear systems, that's going to change though.
 2. Due to the way inductors and capacitors are modeled you can't put two inductors in series, or two capacitors in parallel, that's also going to be fixed.
-### Building From Source
+## Building From Source
 1. Make sure [Gtk4](https://www.gtk.org/docs/installations/),  libadwaita and [Gradle](https://gradle.org/install/) are installed on your machine.
 2. Clone this repo:
 ```
