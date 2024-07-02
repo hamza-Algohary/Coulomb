@@ -13,9 +13,8 @@
   </p>
 </div>
 
-![](screenshots/double-clipper.png)
 ![](screenshots/rlc.png)
-![](screenshots/led.png)
+![](screenshots/zener-light.png)
 
 ### Features
 - Draw arbitrary circuits
