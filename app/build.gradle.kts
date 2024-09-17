@@ -86,8 +86,17 @@ public class Resources {
 
         output += "}"
         File("app/src/main/java/resources/Resources.java").writeText(output)
+
     }
 
 }
 
-tasks.register<Resources>("resources")
+tasks.register<Resources>("resources") 
+
+tasks.build {
+    dependsOn("resources")
+}
+
+tasks.compileJava {
+    dependsOn("resources")
+}
