@@ -9,7 +9,9 @@ public class AboutDialog extends ch.bailu.gtk.gtk.AboutDialog{
         this.setProgramName("Coulomb Circuit Simulator");
         this.setComments("A simple and powerful circuit simulator for Linux.");
         //this.setDeveloperName("Hamza Algohary");
-        this.setAuthors(new Strs(new String[]{"Hamza Algohary"}));
+        if(!Platform.isWindows())
+            this.setAuthors(new Strs(new String[]{"Hamza Algohary"}));
+
         this.setLicense(LICENSE);
         this.setWebsite("https://github.com/hamza-Algohary/Coulomb");
         this.setWebsiteLabel("Source Code");

@@ -1,6 +1,8 @@
 package gui;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.prefs.Preferences;
 
 import ch.bailu.gtk.adw.Application;
 import ch.bailu.gtk.adw.ColorScheme;
@@ -15,8 +17,11 @@ import ch.bailu.gtk.gtk.CssProvider;
 import ch.bailu.gtk.gtk.EventControllerKey;
 import ch.bailu.gtk.gtk.Orientation;
 import ch.bailu.gtk.gtk.StyleContext;
+import ch.bailu.gtk.type.Str;
 import graphics.Color;
 import gui.oscilliscope.Oscilliscopes;
+import resources.Resource;
+import resources.Resources;
 
 public class MainApplication extends Application{
     ApplicationWindow window;
@@ -26,15 +31,17 @@ public class MainApplication extends Application{
     Box mainBox , leftBox;
     ParamtersEditor editor;
     CssProvider cssProvider;
+    CssProvider customThemeProvider;
 
     public boolean ctrlIsPressed = false;
 
     Function<Void,Void> onStart = (Void v)->{return null;};
     MainApplication(String args[]){
-        super("com.example.hello", ApplicationFlags.FLAGS_NONE);
+        super("io.github.hamza-Algohary.coulomb", ApplicationFlags.DEFAULT_FLAGS);
         this.onActivate(()->{
             window = new ApplicationWindow(this);
             headerBar = new MainHeaderBar();
+            
             leftBox = new Box(Orientation.VERTICAL , 0);
             oscilliscopes = new Oscilliscopes();
             drawingArea = new StackContainer(headerBar.devicesSelector , oscilliscopes);
@@ -43,7 +50,10 @@ public class MainApplication extends Application{
             editor = new ParamtersEditor(drawingArea);
 
             cssProvider = new CssProvider();
+            customThemeProvider = new CssProvider();
+
             loadStyle();
+
             window.setTitle("CircuitSimulator");
             window.setTitlebar(headerBar);
             window.setChild(mainBox);
@@ -71,17 +81,17 @@ public class MainApplication extends Application{
             window.addController(keyboard);
             keyboard.onKeyPressed((int keyValue , int keyCode , int z)->{
                 if(keyValue == GdkConstants.KEY_Control_L || keyValue == GdkConstants.KEY_Control_R){
-                    System.out.println("Ctrl is pressed.");
+                    //System.out.println("Ctrl is pressed.");
                     ctrlIsPressed = true;
                 }
                 drawingArea.keyPressed(keyValue, keyCode);
                 drawingArea.queueDraw();
-                System.out.println("WIDTH = " + window.getWidth() + "HEIGHT = " + window.getHeight());
+                //System.out.println("WIDTH = " + window.getWidth() + "HEIGHT = " + window.getHeight());
                 return true;
             });
             keyboard.onKeyReleased((int keyValue , int keyCode , int z)->{
                 if(keyValue == GdkConstants.KEY_Control_L || keyValue == GdkConstants.KEY_Control_R){
-                    System.out.println("Ctrl is released");
+                    //System.out.println("Ctrl is released");
                     ctrlIsPressed = false;
                 }
                 drawingArea.keyReleased(keyValue, keyCode);
@@ -98,6 +108,7 @@ public class MainApplication extends Application{
                 drawingArea.queueDraw();
             });
 
+            StyleContext.addProviderForDisplay(window.getDisplay(), customThemeProvider.asStyleProvider(), 0);
             StyleContext.addProviderForDisplay(window.getDisplay(), cssProvider.asStyleProvider(), 1000);
             this.getStyleManager().setColorScheme(ColorScheme.PREFER_LIGHT);
             updateSettings();
@@ -109,8 +120,39 @@ public class MainApplication extends Application{
     }
 
     private void loadStyle() {
-        cssProvider.loadFromData(style(), style().length());
+        System.out.println("Loading Style");
+        LightDarkSwitch.Selector.updateColorScheme();
+
+        // if(customThemeProvider != null) {
+        //     var file = ch.bailu.gtk.gio.File.newForPath(new Str(Resource.PREFIX+Resources.css_gtk_0_gtk_4_Fluent_round_Dark_themes_));
+        //     System.out.println("Attempting");
+        //     customThemeProvider.loadFromFile(file);
+        //     System.out.println("Finished the attempt.");
+        // }
+
+        if(cssProvider != null)
+            cssProvider.loadFromData(style(), style().length());
+        System.out.println("Loaded Style");
     }
+
+    // private List<String> systemStyle() {
+    //     if(true) {
+    //         /*return Color.stringFromResource(
+    //             this.getStyleManager().getDark()?
+    //             Resources.css_gtk_0_gtk_4_Fluent_round_Dark_themes_ :
+    //             Resources.css_gtk_0_gtk_4_Fluent_round_Light_themes_
+    //         );*/
+    //         return Color.stringFromResource("themes/Fluent-round-Dark/gtk-4.0/gtk.css");
+    //     } else if (Platform.isMac()) {
+    //         return Color.longStringFromResource(
+    //             this.getStyleManager().getDark()?
+    //             Resources.css_gtk_0_gtk_4_WhiteSur_Dark_themes_:
+    //             Resources.css_gtk_0_gtk_4_WhiteSur_Light_themes_
+    //         );
+    //     } else {
+    //         return "";
+    //     }
+    // }
 
     public void updateSettings(){
         loadStyle();
@@ -169,6 +211,9 @@ public class MainApplication extends Application{
         headerBar.runButton.updateSettings();
         headerBar.hamburgerMenuButton.menu.examplesBox.backButton.updateSettings();
         headerBar.autoCenterButton.updateSettings();
+        headerBar.autoCenterButton.updateSettings();
+        headerBar.deleteButton.updateSettings();
+        Icon.updateAll();
     }
 
     public void onStart(Function<Void,Void> function){
@@ -176,7 +221,7 @@ public class MainApplication extends Application{
     }
 
     public final String style(){
-        return """
+        return /*systemStyle()+*/"""
         .mycard{
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
             border-radius: 10px;

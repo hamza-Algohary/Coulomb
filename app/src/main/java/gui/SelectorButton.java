@@ -23,9 +23,11 @@ public class SelectorButton extends ToggleButton {
 
     void updateSettings(){
         try{
-            Image image = Image.newFromPixbufImage(Color.pixbufFromResource(name));
+            Image image = Color.newImage(name);//Image.newFromPixbufImage(Color.pixbufFromResource(name,32));
             this.setChild(image);
-        }catch(Exception E){}
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public SelectorButton(String name){
         this();

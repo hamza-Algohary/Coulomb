@@ -12,7 +12,7 @@ public class RunButton extends Button {
     }
 
     public RunButton() {
-        this.setIconName(Color.icon("play"));  
+        //this.setIconName(Color.icon("play"));  
         updateSettings();
         this.onClicked(() -> {
             running = !running;
@@ -26,8 +26,8 @@ public class RunButton extends Button {
         else
             name = "play";
         try{
-            Image image = Image.newFromPixbufImage(Color.pixbufFromResource(name));
-            this.setChild(image);
+            //Image image = Image.newFromPixbufImage(Color.pixbufFromResource(name,32));
+            this.setChild(Color.newImage(name));
         }catch(Exception E){}
     }
 }

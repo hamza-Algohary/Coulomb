@@ -189,7 +189,7 @@ public class StackContainer extends DrawingArea {
                     Point delta = lastMouse.relativeTo(startDraggingMouse);
                     shift = shift.add(delta);
                     startDraggingMouse = lastMouse;
-                    System.out.println("Shifting = " + shift.toString() + "Delta = " + delta.toString());
+                    //System.out.println("Shifting = " + shift.toString() + "Delta = " + delta.toString());
                     this.queueDraw();
                 }else{
                     for (var component : components) {
@@ -289,31 +289,33 @@ public class StackContainer extends DrawingArea {
 
         scroller.onScroll( (double dx, double dy)->{
             this.scale -= 0.1*dy;
-            System.out.println("Scale = " + scale);
+            //System.out.println("Scale = " + scale);
             this.queueDraw();
             return true;
         });
 
     }
 
-    public static final int KEY_DELETE = 119;
+    public static final int KEY_DELETE = 65535;
 
     public void keyReleased(int value, int code) {
-        if (code == KEY_DELETE) {
-            for (int i=0 ; i<components.size() ; i++) {
-                if (components.get(i).isselected()) {
-                    System.out.println("Deleting component");
-                    removeComponent(components.get(i));
-                    i--;
-                    //break;
-                }
-            }
+        if (value == KEY_DELETE) {
+            deleteSelectedComponent();
         } 
+    }
+
+    public void deleteSelectedComponent() {
+        for (int i=0 ; i<components.size() ; i++) {
+            if (components.get(i).isselected()) {
+                removeComponent(components.get(i));
+                i--;
+                //break;
+            }
+        }
     }
 
     public void keyPressed(int value , int code){
         if (Main.app.ctrlIsPressed == true && (value == GdkConstants.KEY_A || value == GdkConstants.KEY_a) ){
-            System.out.println("Selecting All");
             selectAll();
         }
     }
@@ -325,7 +327,6 @@ public class StackContainer extends DrawingArea {
                 selectedComponents.add(component);
             }
         }
-        // System.out.println(selectedComponents.size());
         return selectedComponents.toArray(new Component[0]);
     }
 
@@ -429,7 +430,7 @@ public class StackContainer extends DrawingArea {
             text += component.toString() + "\n";
         }
 
-        System.out.println(text);
+        //System.out.println(text);
         return text;
     }
 
@@ -448,7 +449,7 @@ public class StackContainer extends DrawingArea {
     }
 
     public Point lastMouseScaled(){
-        System.out.println("SHIFT = " + shift + "SCALE = " + scale);
+        //System.out.println("SHIFT = " + shift + "SCALE = " + scale);
         return lastMouse.relativeTo(shift).scale(1/scale);
     }
 

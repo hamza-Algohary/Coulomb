@@ -1,6 +1,11 @@
 package gui;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import ch.bailu.gtk.glib.Glib;
@@ -57,7 +62,11 @@ public class Main {
         }
     });
 
+
+
     public static void main(String args[]){
+
+        Platform.init();        
 
         String path = ""; 
 

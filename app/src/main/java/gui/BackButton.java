@@ -8,7 +8,7 @@ import ch.bailu.gtk.gtk.Label;
 import graphics.Color;
 
 public class BackButton extends Button{
-    Image image = Image.newFromFileImage(Color.icon("back"));
+    Image image = new Image();// = Image.newFromFileImage(Color.icon("back"));
 
     public BackButton(String text , HamburgerMenu popover){
         Label label = new Label(text);
@@ -26,6 +26,8 @@ public class BackButton extends Button{
         CenterBox box = new CenterBox();
         this.setChild(box);
 
+        updateSettings();
+
         box.setStartWidget(image);
         box.setCenterWidget(label);
 
@@ -41,7 +43,8 @@ public class BackButton extends Button{
     }
     void updateSettings(){
         try{
-            image.setFromPixbuf(Color.pixbufFromResource("back"));    
+            Color.initImage(image, "back");
+            //image.setFromPixbuf(Color.pixbufFromResource("back",32));    
         }catch(Exception E){}
     }
 

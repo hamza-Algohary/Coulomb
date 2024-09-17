@@ -1,13 +1,20 @@
 package graphics;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.checkerframework.common.reflection.qual.GetClass;
 
 import ch.bailu.gtk.gdk.RGBA;
 import ch.bailu.gtk.gdkpixbuf.Pixbuf;
+import ch.bailu.gtk.gtk.Image;
 import ch.bailu.gtk.lib.util.JavaResource;
+import ch.bailu.gtk.type.exception.AllocationError;
+import gui.Platform;
+import resources.Resource;
 
 public class Color{
     public double red , green , blue , alpha;
@@ -27,6 +34,13 @@ public class Color{
         blue = color.getFieldBlue();
         alpha = color.getFieldAlpha();
     }
+
+    // static {
+    //     if(Platform.isWindows()) {
+    //         new File(Platform.TEMP_DIR+"/icons/light").mkdirs();
+    //         new File(Platform.TEMP_DIR+"/icons/dark").mkdirs();
+    //     }
+    // }
 
     public static double LINE_WIDTH = 5;
     public static double CIRCLE_RADIUS = 10;
@@ -55,25 +69,62 @@ public class Color{
         System.out.println(name + " = (" + red + " , " + green + " , " + blue + ")");
     }
 
-    public static String icon(String name){
-        //System.out.println("DARK = " + dark);
-        return "/icons/"+(dark?"dark/":"light/")+name+".svg";
+    public static String colorScheme() {
+        return (dark?"dark":"light");
     }
-    public static Pixbuf pixbufFromResource(String name) throws IOException {
-        try (var inputStream = new JavaResource(Color.icon(name)).asStream()) {
-            return ch.bailu.gtk.lib.bridge.Image.load(inputStream);
+
+    public static String icon_scalable(String name){
+        //System.out.println("DARK = " + dark);
+        return "/icons/vector/"+colorScheme()+"/"+name+".svg";
+    }
+
+    public static String icon_raster(String name){
+        //System.out.println("DARK = " + dark);
+        return "/icons/raster/"+colorScheme()+"/"+name+".png";
+    }
+
+    public static Pixbuf pixbufFromResource(String name , int size) throws IOException , AllocationError {
+
+        try (var inputStream = new JavaResource(Color.icon_scalable(name)).asStream()) {
+            // if (Platform.isWindows()) {
+            //     Platform.extractResource(Color.icon(name), Platform.TEMP_DIR +"/" +name+".svg");
+            //     return Pixbuf.newFromFileAtSizePixbuf(Platform.TEMP_DIR + Color.icon(name), size, size);
+            // }else {
+                return ch.bailu.gtk.lib.bridge.Image.load(inputStream,size,size);
+            //}
         }
+    }
+
+    public static void initImage(Image image , String name) throws Exception {
+        if(Platform.isWindows()) {
+            String target = Resource.PREFIX + Color.icon_raster(name);
+            //Platform.extractResource("/win"+Color.icon_png(name), target);
+            image.setFromFile(target);
+        } else {
+            image.setFromPixbuf(Color.pixbufFromResource(name,32));
+        }
+    }
+
+    public static Image newImage(String name) throws Exception {
+        Image image = new Image();
+        initImage(image, name);
+        return image;
     }
 
     public static String stringFromResource(String path) {
         var contextClassLoader = Thread.currentThread().getContextClassLoader();
-        var stream = contextClassLoader.getResourceAsStream(path);
-        if(stream == null)
-            System.out.println("!!!!!!!!!!!!!!!!!PANIC!!!!!!!!!!!!!!!!!!!!!!"); 
-        var scanner = new Scanner(stream, "UTF-8");
-        var text = scanner.useDelimiter("\\A").next();
-        System.out.println("TEXT = \n"+text);
-        scanner.close();
-        return text;
+        try {
+            var stream = contextClassLoader.getResourceAsStream(path);
+            if(stream == null)
+                System.out.println("!!!!!!!!!!!!!!!!!PANIC!!!!!!!!!!!!!!!!!!!!!!"); 
+            var scanner = new Scanner(stream, "UTF-8");
+            var text = scanner.useDelimiter("\\A").next();
+            //System.out.println("TEXT = \n"+text);
+            scanner.close();
+            return text;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 } 

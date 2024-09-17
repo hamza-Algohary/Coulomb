@@ -11,10 +11,12 @@ import ch.bailu.gtk.gtk.WindowHandle;
 public class MainHeaderBar extends WindowHandle {
     HamburgerMenuButton hamburgerMenuButton = new HamburgerMenuButton();
     RunButton runButton = new RunButton();
+
     IconSelector devicesSelector = new IconSelector();
     WindowControls controls = new WindowControls(1);
 
     public SelectorButton autoCenterButton = new SelectorButton("zoom-fit-best");
+    public DeleteButton deleteButton = new DeleteButton();
 
     Box box = new Box(Orientation.HORIZONTAL , 5);
     Box startBox = new Box(Orientation.HORIZONTAL, 0);
@@ -25,7 +27,7 @@ public class MainHeaderBar extends WindowHandle {
         box.append(startBox);
         
         addResetButton();
-
+        box.append(deleteButton);
         box.append(autoCenterButton);
         adjustMargins(autoCenterButton);
         autoCenterButton.setActive(true);
@@ -85,7 +87,8 @@ public class MainHeaderBar extends WindowHandle {
 
     private void addButton(String iconName , Button.OnClicked handler){
         Button resetButton = new Button();
-        resetButton.setIconName(iconName);
+        resetButton.setChild(new Icon(iconName));
+        //resetButton.setIconName(iconName);
         resetButton.onClicked(handler);
 
         resetButton.addCssClass("flat");

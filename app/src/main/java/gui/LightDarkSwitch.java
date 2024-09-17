@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.prefs.Preferences;
+
 import ch.bailu.gtk.adw.ColorScheme;
 import ch.bailu.gtk.gdk.GdkConstants;
 import ch.bailu.gtk.gtk.Box;
@@ -63,8 +65,9 @@ public class LightDarkSwitch extends Box{
             var click = new GestureClick();
             click.setButton(GdkConstants.BUTTON_PRIMARY);
             click.onPressed((int n_press, double x, double y)->{
-                Main.app.getStyleManager().setColorScheme(colorScheme);
-                System.out.println("COLOR SCHEME = " + colorScheme);
+                Preferences.userRoot().node(this.getClass().getName()).putInt("color-scheme", colorScheme);
+                updateColorScheme();
+                //System.out.println("COLOR SCHEME = " + colorScheme);
                 update();
             });
 
@@ -79,6 +82,9 @@ public class LightDarkSwitch extends Box{
             this.setMarginStart(margin);
             this.setMarginEnd(margin);
 
+        }
+        public static void updateColorScheme() {
+            Main.app.getStyleManager().setColorScheme(Preferences.userRoot().node(Selector.class.getName()).getInt("color-scheme" , ColorScheme.PREFER_LIGHT));
         }
     }
 

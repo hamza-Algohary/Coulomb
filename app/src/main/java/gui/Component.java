@@ -165,7 +165,7 @@ public class Component {
 
     protected void move(Point mouse) {
         Point shift = mouse.relativeTo(dragStartPoint);
-        System.out.println("MOVING = " + shift);
+        //System.out.println("MOVING = " + shift);
         setStart(lastStart.add(shift));
         setEnd(lastEnd.add(shift));
     }
@@ -180,7 +180,7 @@ public class Component {
     }
 
     public static Component newFromName(String name) {
-        System.out.println("NAME = " + name);
+        //System.out.println("NAME = " + name);
         if (name.compareTo(Constants.W) == 0) {
             return new WireComponent();
         } else if (name.compareTo(Constants.V) == 0) {
@@ -273,7 +273,7 @@ public class Component {
     }
 
     public boolean hover(Point mouse , boolean blocked) {
-        System.out.println("MOUSE = " + mouse);
+        //System.out.println("MOUSE = " + mouse);
         this.hoverBlocked = blocked;
         lastMouse = mouse;
         return nearDevice(mouse);
