@@ -8,6 +8,8 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+
 }
 
 repositories {
@@ -39,10 +41,53 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass.set("Main")
+    mainClass.set("Main")  
 }
 
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
+
+// fun toVarName(path : String) = 
+//     path.replace("/" , "_").replace(" " , "_").replace("-" , "_").replace(".","_").drop(1).replace(Regex("[^A-Za-z0-9_]") , "")
+
+abstract class Resources : DefaultTask() {
+    @TaskAction
+    fun action() {
+        val resources = File("app/src/main/resources")
+        File("app/src/main/java/resources").mkdir()
+
+        var output = """package resources;
+public class Resources {
+    public static String[] resources = {
+"""
+        for (res_path in resources.walk()) {
+            var res = res_path.toString().replace("app/src/main/resources" , "")
+            if(res!= "" && !res_path.isDirectory())
+                output += "\t\t\"${res}\",\n"
+            //println("\"${res}\",")
+        }
+        output += "\t};\n" 
+
+        for (res_path in resources.walk()) {
+            var res = res_path.toString().replace("app/src/main/resources" , "")
+
+            if(!(res.endsWith(".css") || res.endsWith(".svg")))
+                continue;
+            
+            var path_components = res.split("/" , ".").reversed().joinToString(separator="_")
+            var varName = path_components.replace("/" , "_").replace(" " , "_").replace("-" , "_").replace(".","_").replace(Regex("[^A-Za-z0-9_]") , "")
+
+            if(res!= "" && !res_path.isDirectory() )
+                output += "\tpublic static final String ${varName} = \"${res.drop(1)}\";\n"
+        }
+        
+
+        output += "}"
+        File("app/src/main/java/resources/Resources.java").writeText(output)
+    }
+
+}
+
+tasks.register<Resources>("resources")

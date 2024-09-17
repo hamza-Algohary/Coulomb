@@ -1,8 +1,9 @@
 # Ignore Gradle project-specific cache directory
 .gradle
-
+*.dll
 # Ignore Gradle build output directory
 app/build
 app/bin
-app/src/main/resources/lib
+app/src/main/resources/win32-x86-64
+app/src/dist
 
