@@ -1,6 +1,5 @@
 package gui;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import ch.bailu.gtk.gtk.Image;

@@ -1,9 +1,6 @@
 package gui;
 
-import java.util.List;
 import java.util.function.Function;
-import java.util.prefs.Preferences;
-
 import ch.bailu.gtk.adw.Application;
 import ch.bailu.gtk.adw.ColorScheme;
 import ch.bailu.gtk.gdk.Gdk;
@@ -17,11 +14,8 @@ import ch.bailu.gtk.gtk.CssProvider;
 import ch.bailu.gtk.gtk.EventControllerKey;
 import ch.bailu.gtk.gtk.Orientation;
 import ch.bailu.gtk.gtk.StyleContext;
-import ch.bailu.gtk.type.Str;
 import graphics.Color;
 import gui.oscilliscope.Oscilliscopes;
-import resources.Resource;
-import resources.Resources;
 
 public class MainApplication extends Application{
     ApplicationWindow window;

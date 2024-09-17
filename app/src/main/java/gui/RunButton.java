@@ -1,7 +1,6 @@
 package gui;
 
 import ch.bailu.gtk.gtk.Button;
-import ch.bailu.gtk.gtk.Image;
 import graphics.Color;
 
 public class RunButton extends Button {

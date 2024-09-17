@@ -1,12 +1,7 @@
 package graphics;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
-
-import org.checkerframework.common.reflection.qual.GetClass;
 
 import ch.bailu.gtk.gdk.RGBA;
 import ch.bailu.gtk.gdkpixbuf.Pixbuf;

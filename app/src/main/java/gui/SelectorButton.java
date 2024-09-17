@@ -1,11 +1,9 @@
 package gui;
 
-import ch.bailu.gtk.gtk.Gtk;
 import ch.bailu.gtk.gtk.Image;
 //import ch.bailu.gtk.lib.bridge.Image;
 import ch.bailu.gtk.gtk.ToggleButton;
 import graphics.Color;
-import ch.bailu.gtk.lib.util.JavaResource;
 
 public class SelectorButton extends ToggleButton {
     public static StackContainer container;
