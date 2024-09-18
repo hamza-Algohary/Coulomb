@@ -5,6 +5,15 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.5/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+
+import java.util.zip.ZipFile
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -91,7 +100,68 @@ public class Resources {
 
 }
 
-tasks.register<Resources>("resources") 
+// abstract class DownloadWindowsLibs : DefaultTask() {
+//     @TaskAction
+//     fun action() {
+//         var done_file_path_str = "app/src/main/resources/lib/dlls-done"
+        
+//         if(File(done_file_path_str).exists())
+//             return
+
+//         val path = "app/src/main/resources/lib/win.zip"
+
+//         val f = file(path); 
+//         uri("https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-dlls.zip").toURL().openStream().use { it.copyTo(FileOutputStream(f)) }
+//         // File(path).mkdirs()
+//         // val sourceUrl = "https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-dlls.zip"
+//         // download(sourceUrl,path)
+
+//         File(done_file_path_str).writeText("")
+//     }
+// }
+
+fun unzip(zipFilePath : String, destDir : String) {
+    File(destDir).mkdirs()
+    ZipFile(zipFilePath).use { zip ->
+        zip.entries().asSequence().forEach { entry ->
+            zip.getInputStream(entry).use { input ->
+                File(destDir+"/"+entry.name).outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+        }
+    }
+}
+
+tasks.register<DefaultTask>("downloadWindowsLibs") {
+    doFirst {
+        var done_file_path_str = "app/src/main/resources/lib/dlls-done"
+        val lib_dir = File("app/src/main/resources/lib/")
+        //val path = "app/src/main/resources/lib/win.zip"
+
+        if(!File(done_file_path_str).exists()) {
+            if (lib_dir.exists()) {
+                lib_dir.deleteRecursively()
+            }
+            lib_dir.mkdirs()
+            uri("https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-win.zip").toURL().openStream().use { it.copyTo(FileOutputStream(File("app/src/main/resources/lib/win.zip"))) }            
+            unzip("app/src/main/resources/lib/win.zip" , "app/src/main/resources/lib/win")
+            File("app/src/main/resources/lib/win.zip").delete()
+            File(done_file_path_str).writeText("")   
+        }
+    }
+}
+
+// tasks.register<Copy>("unpackWindowsLibs") {
+//     from(zipTree("src/main/resources/lib/win.zip"))
+//     into(layout.buildDirectory.dir("resources/lib/win"))
+//     dependsOn("downloadWindowsLibs")
+// }
+
+tasks.register<Resources>("resources") {
+    dependsOn("downloadWindowsLibs")
+    //dependsOn("unpackWindowsLibs")
+}
 
 tasks.build {
     dependsOn("resources")
