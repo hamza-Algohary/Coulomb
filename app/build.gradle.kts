@@ -58,8 +58,6 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 
-// fun toVarName(path : String) = 
-//     path.replace("/" , "_").replace(" " , "_").replace("-" , "_").replace(".","_").drop(1).replace(Regex("[^A-Za-z0-9_]") , "")
 
 abstract class Resources : DefaultTask() {
     @TaskAction
@@ -100,25 +98,6 @@ public class Resources {
 
 }
 
-// abstract class DownloadWindowsLibs : DefaultTask() {
-//     @TaskAction
-//     fun action() {
-//         var done_file_path_str = "app/src/main/resources/lib/dlls-done"
-        
-//         if(File(done_file_path_str).exists())
-//             return
-
-//         val path = "app/src/main/resources/lib/win.zip"
-
-//         val f = file(path); 
-//         uri("https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-dlls.zip").toURL().openStream().use { it.copyTo(FileOutputStream(f)) }
-//         // File(path).mkdirs()
-//         // val sourceUrl = "https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-dlls.zip"
-//         // download(sourceUrl,path)
-
-//         File(done_file_path_str).writeText("")
-//     }
-// }
 
 fun unzip(zipFilePath : String, destDir : String) {
     File(destDir).mkdirs()
@@ -137,7 +116,6 @@ tasks.register<DefaultTask>("downloadWindowsLibs") {
     doFirst {
         var done_file_path_str = "app/src/main/resources/lib/dlls-done"
         val lib_dir = File("app/src/main/resources/lib/")
-        //val path = "app/src/main/resources/lib/win.zip"
 
         if(!File(done_file_path_str).exists()) {
             if (lib_dir.exists()) {
@@ -152,15 +130,8 @@ tasks.register<DefaultTask>("downloadWindowsLibs") {
     }
 }
 
-// tasks.register<Copy>("unpackWindowsLibs") {
-//     from(zipTree("src/main/resources/lib/win.zip"))
-//     into(layout.buildDirectory.dir("resources/lib/win"))
-//     dependsOn("downloadWindowsLibs")
-// }
-
 tasks.register<Resources>("resources") {
     dependsOn("downloadWindowsLibs")
-    //dependsOn("unpackWindowsLibs")
 }
 
 tasks.build {
