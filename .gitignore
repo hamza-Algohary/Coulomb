@@ -4,6 +4,6 @@
 # Ignore Gradle build output directory
 app/build
 app/bin
-app/src/main/resources/win32-x86-64
+app/src/main/resources/lib
 app/src/dist
 
