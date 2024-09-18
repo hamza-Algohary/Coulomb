@@ -19,8 +19,8 @@ public class DeleteButton extends Button{
 
     public void updateSettings(){
         try{
-            Image image = Image.newFromPixbufImage(Color.pixbufFromResource("delete",32));
-            this.setChild(image);
+            //Image image = Image.newFromPixbufImage(Color.pixbufFromResource("delete",32));
+            this.setChild(Color.newImage("delete"));
         }catch(Exception E){}
     }
 }
