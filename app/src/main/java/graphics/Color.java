@@ -3,6 +3,7 @@ package graphics;
 import java.io.IOException;
 import java.util.Scanner;
 
+import ch.bailu.gtk.gdk.Paintable;
 import ch.bailu.gtk.gdk.RGBA;
 import ch.bailu.gtk.gdkpixbuf.Pixbuf;
 import ch.bailu.gtk.gtk.Image;
@@ -91,19 +92,46 @@ public class Color{
     }
 
     public static void initImage(Image image , String name) throws Exception {
+        // if(Platform.isWindows()) {
+        //     String target = Resource.PREFIX + Color.icon_raster(name);
+        //     //Platform.extractResource("/win"+Color.icon_png(name), target);
+        //     image.setFromFile(target);
+        // } else {
+        //     image.setFromPixbuf(Color.pixbufFromResource(name,32));
+        // }
+        initImage(image, name, 32);
+    }
+
+    public static void initImage(Image image , String name , int size) throws Exception {
         if(Platform.isWindows()) {
             String target = Resource.PREFIX + Color.icon_raster(name);
             //Platform.extractResource("/win"+Color.icon_png(name), target);
             image.setFromFile(target);
         } else {
-            image.setFromPixbuf(Color.pixbufFromResource(name,32));
+            image.setFromPixbuf(Color.pixbufFromResource(name,size));
         }
     }
 
-    public static Image newImage(String name) throws Exception {
+    public static Image newImage(String name , int size) throws Exception {
         Image image = new Image();
-        initImage(image, name);
+        initImage(image, name , size);
         return image;
+    }
+
+    public static Image newImage(String name) throws Exception {
+        // Image image = new Image();
+        // initImage(image, name);
+        // return image;
+        return newImage(name, 32);
+    }
+
+    public static Paintable logo() {
+        try {
+            return newImage("coulomb" , 256).getPaintable();
+        }catch (Exception e) {
+            System.out.println("Couldn't load logo.");
+            return new Image().getPaintable();
+        }
     }
 
     public static String stringFromResource(String path) {

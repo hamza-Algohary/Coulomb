@@ -1,6 +1,7 @@
 package gui;
 
 import ch.bailu.gtk.type.Strs;
+import graphics.Color;
 
 public class AboutDialog extends ch.bailu.gtk.gtk.AboutDialog{
 
@@ -9,13 +10,18 @@ public class AboutDialog extends ch.bailu.gtk.gtk.AboutDialog{
         this.setProgramName("Coulomb Circuit Simulator");
         this.setComments("A simple and powerful circuit simulator for Linux.");
         //this.setDeveloperName("Hamza Algohary");
-        if(!Platform.isWindows())
+        if(!Platform.isWindows()) {
             this.setAuthors(new Strs(new String[]{"Hamza Algohary"}));
-
+            this.setArtists(new Strs(new String[]{"Alhussien Algohary"}));
+        }
+        
         this.setLicense(LICENSE);
         this.setWebsite("https://github.com/hamza-Algohary/Coulomb");
         this.setWebsiteLabel("Source Code");
-        this.setLogoIconName("electron");
+        //this.setLogoIconName("electron");
+        //try{this.setLogo(Color.newImage("coulomb").getPaintable());}catch(Exception e){System.out.println("Couldn't load logo.");}
+        this.setLogo(Color.logo());
+
         this.setVersion("0.6.0");
         this.getTitlebar().addCssClass("background");
         this.getTitlebar().addCssClass("flat");

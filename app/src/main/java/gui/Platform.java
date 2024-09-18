@@ -25,6 +25,7 @@ public class Platform {
     public static void init() {
         //Resource.extractThemes();
         if(isWindows()) {
+            Resource.setJnaLibraryPathForWindows();
             Resource.extractWindowsResources();
         } else if (isMac()) {
             System.out.println("Mac Detected");

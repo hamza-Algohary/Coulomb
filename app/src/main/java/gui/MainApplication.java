@@ -48,11 +48,12 @@ public class MainApplication extends Application{
 
             loadStyle();
 
-            window.setTitle("CircuitSimulator");
+            window.setTitle("Coulomb");
             window.setTitlebar(headerBar);
             window.setChild(mainBox);
             window.setDefaultSize(950, 600);
-            window.setIconName("electron");
+            //window.setIconName("electron");
+            window.setIconName("coulomb");
             
             mainBox.append(leftBox);
             mainBox.append(oscilliscopes);
@@ -238,7 +239,42 @@ public class MainApplication extends Application{
         .myshortcut{
             background: #ffffff;
         }
-                """);
+        """
+        )+platformStyle();
+    }
+
+    public final String platformStyle() {
+        if(Platform.isWindows()) {
+            return """
+                    windowhandle{
+                        box-shadow:none;
+                    }
+                    windowcontrols button , windowcontrols button image{
+                        margin:-3px ;
+                        padding-left: 10px;
+                        padding-right: 10px;
+                        border-radius:0px;
+                        background:transparent;
+                    } 
+                    windowcontrols {
+                        margin-top:-29px;
+                        margin-bottom:-10px;
+                        margin-left:-5px;
+                        margin-right: -5px
+                    }    
+                    windowcontrols button:hover {
+                        background: """+ (this.getStyleManager().getDark()?"#373737;":" #e9e9e9;")  +""" 
+                    }
+                    windowcontrols button.close:hover {
+                        background: #e81123;
+                    }    
+                    windowcontrols button.close:hover image{
+                        color: #fcfcfc;
+                    }
+                    """;
+        } else {
+            return "";
+        }
     }
 
     public void reset(){
