@@ -4,18 +4,17 @@
 
 <div align="center">
 <a href="https://github.com/hamza-Algohary/Coulomb">
-    <img src="app/src/main/resources/icons/vector/dark/coulomb.svg" alt="Logo" width="80" height="80">
+    <img src="app/src/main/resources/icons/vector/dark/coulomb.svg" alt="Logo" width="128" height="128">
 </a>
-
-<h3 align="center">Coulomb</h3>
+<h3 style="font-size:26px" align="center">Coulomb</h3>
 <p align="center">
-    A powerful and beautiful cross-platform circuit simulator.
-    
-<br />
+    A simple and beautiful cross-platform circuit simulator.
+<br/> <br/>
 </p>
 </div>
 
 ![](screenshots/rlc.png)
+
 ![](screenshots/zener-light.png)
 
 ## Features
@@ -23,7 +22,7 @@
 - Plot voltage and current of devices against time
 - Save/Load circuits
 - Dark Mode support
-- Beautiful UI using libadwaita
+- Beautiful UI
 
 ## Available Devices
 - Resistor
@@ -52,6 +51,12 @@ cd Coulomb
 ```
 ./gradlew run
 ```
+
+## Credits
+- Coulomb's backend uses [Efficient Java Matrix Library](https://github.com/lessthanoptimal/ejml) for solving linear systems.
+- Icon designed by Alhussien Algohary.
+- Coulomb is heavily inspired by [Paul Falstad's Circuit Simulator](https://www.falstad.com/circuit/)
+
 
 ## License
 Coulomb is released under the terms of the GNU General Public License v3

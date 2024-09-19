@@ -5,6 +5,7 @@
 - [ ] Build your own AboutDialog (Maybe try this one in kotlin.)
 - [X] Make window controls look windows-like on windows.
 - [X] Put the Coulomb logo everywhere.
+- [ ] Add credits and inspiration to the README.
 - [ ] Make a one time popup to explain problems in that release/ or may be have a setting for unstable features, or may be something else.
 - [ ] Prepare for packaging as MSI, flatpak and maybe others, in addition to the jar of course.
 - [ ] Make release script, and release notes.
