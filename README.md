@@ -1,16 +1,18 @@
 <a id="readme-top"></a>
 
 <br />
-<div align="center">
-  <!--<a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>-->
 
-  <h3 align="center">Coulomb</h3>
-  <p align="center">
+<div align="center">
+<a href="https://github.com/hamza-Algohary/Coulomb">
+    <img src="app/src/main/resources/icons/vector/dark/coulomb.svg" alt="Logo" width="80" height="80">
+</a>
+
+<h3 align="center">Coulomb</h3>
+<p align="center">
     A powerful and beautiful cross-platform circuit simulator.
-    <br />
-  </p>
+    
+<br />
+</p>
 </div>
 
 ![](screenshots/rlc.png)
