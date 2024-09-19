@@ -54,7 +54,7 @@ cd Coulomb
 
 ## Credits
 - Coulomb's backend uses [Efficient Java Matrix Library](https://github.com/lessthanoptimal/ejml) for solving linear systems.
-- Icon designed by Alhussien Algohary.
+- Coulomb's logo is designed by Alhussien Algohary.
 - Coulomb is heavily inspired by [Paul Falstad's Circuit Simulator](https://www.falstad.com/circuit/)
 
 
