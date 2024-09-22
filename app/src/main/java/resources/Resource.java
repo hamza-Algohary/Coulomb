@@ -16,7 +16,7 @@ import gui.Platform;
 public class Resource {
 
     public static final String PREFIX = System.getProperty("java.io.tmpdir")+(Platform.isLinux()?"/":"")+"coulomb"; 
-    public static final int resources_version = 1;
+    public static final int resources_version = 2;
     /* Create a file with all its parent directories.  */
     public static FileOutputStream createDeepFile(String path) throws FileNotFoundException {
         new File(new File(path).getParent()).mkdirs();

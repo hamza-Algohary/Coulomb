@@ -1,9 +1,13 @@
 package gui;
 
+import ch.bailu.gtk.adw.ActionRow;
+import ch.bailu.gtk.adw.PreferencesRow;
 import ch.bailu.gtk.gtk.Align;
 import ch.bailu.gtk.gtk.Box;
 import ch.bailu.gtk.gtk.FileChooserAction;
 import ch.bailu.gtk.gtk.FileChooserDialog;
+import ch.bailu.gtk.gtk.ListBox;
+import ch.bailu.gtk.gtk.ListBoxRow;
 import ch.bailu.gtk.gtk.Orientation;
 import ch.bailu.gtk.gtk.Popover;
 import ch.bailu.gtk.gtk.ResponseType;
@@ -111,7 +115,10 @@ public class HamburgerMenu extends Popover {
         }, this));
 
         //box.append(new MenuButton("Preferences" , Align.START , ()->{}));
-        box.append(new MenuButton("About" , Align.START , ()->{new AboutDialog().show();} , this));
+        box.append(new MenuButton("About" , Align.START , ()->{
+            //new AboutDialog().show();
+            new MyAbout().run(Main.app.window);
+        } , this));
 
         stack.setTransitionType(StackTransitionType.SLIDE_LEFT_RIGHT);
 

@@ -1,14 +1,19 @@
 package gui;
 
-import ch.bailu.gtk.gtk.AboutDialog;
-import ch.bailu.gtk.gtk.License;
-import ch.bailu.gtk.type.Strs;
+import ch.bailu.gtk.gtk.Window;
+import ch.bailu.gtk.gtk.Box;
+import ch.bailu.gtk.gtk.HeaderBar;
+import ch.bailu.gtk.gtk.ListBox;
+import ch.bailu.gtk.gtk.Orientation;
 
-public class About extends AboutDialog{
+
+public class About extends Window{
     public About(){
-        this.setAuthors(new Strs(new String[]{"Hamza Algohary"}));
-        this.setLicenseType(License.GPL_3_0);
-        this.setProgramName("Amber Circuit Simulator");
-        this.setIconName("electron");
+        this.setTitlebar(new HeaderBar());
+
+        ListBox main_box = new ListBox();
+        this.setChild(main_box);
+
+        
     }
 }

@@ -3,12 +3,17 @@ package graphics;
 import java.io.IOException;
 import java.util.Scanner;
 
+import ch.bailu.gtk.gdk.GdkConstants;
 import ch.bailu.gtk.gdk.Paintable;
 import ch.bailu.gtk.gdk.RGBA;
 import ch.bailu.gtk.gdkpixbuf.Pixbuf;
+import ch.bailu.gtk.glib.Uri;
+import ch.bailu.gtk.gtk.Gtk;
 import ch.bailu.gtk.gtk.Image;
 import ch.bailu.gtk.lib.util.JavaResource;
+import ch.bailu.gtk.type.Str;
 import ch.bailu.gtk.type.exception.AllocationError;
+import gui.Main;
 import gui.Platform;
 import resources.Resource;
 
@@ -69,6 +74,10 @@ public class Color{
         return (dark?"dark":"light");
     }
 
+    public static String scaleFactor() {
+        return Main.app.getWindow().getScaleFactor()==2?"scale_2":"scale_1";
+    }
+
     public static String icon_scalable(String name){
         //System.out.println("DARK = " + dark);
         return "/icons/vector/"+colorScheme()+"/"+name+".svg";
@@ -76,7 +85,7 @@ public class Color{
 
     public static String icon_raster(String name){
         //System.out.println("DARK = " + dark);
-        return "/icons/raster/"+colorScheme()+"/"+name+".png";
+        return "/icons/raster/"+scaleFactor()+"/"+colorScheme()+"/"+name+".png";
     }
 
     public static Pixbuf pixbufFromResource(String name , int size) throws IOException , AllocationError {
@@ -134,6 +143,15 @@ public class Color{
         }
     }
 
+    public static Image logoImage() {
+        try {
+            return newImage("coulomb" , 256);
+        }catch (Exception e) {
+            System.out.println("Couldn't load logo.");
+            return new Image();
+        }
+    }
+
     public static String stringFromResource(String path) {
         var contextClassLoader = Thread.currentThread().getContextClassLoader();
         try {
@@ -149,5 +167,9 @@ public class Color{
             e.printStackTrace();
             return "";
         }
+    }
+
+    public static void launch_uri(String uri) {
+        Gtk.showUri(Main.app.getWindow(), new Str(uri), GdkConstants.CURRENT_TIME);
     }
 } 

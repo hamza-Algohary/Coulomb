@@ -14,6 +14,7 @@ import ch.bailu.gtk.gtk.CssProvider;
 import ch.bailu.gtk.gtk.EventControllerKey;
 import ch.bailu.gtk.gtk.Orientation;
 import ch.bailu.gtk.gtk.StyleContext;
+import ch.bailu.gtk.gtk.Window;
 import graphics.Color;
 import gui.oscilliscope.Oscilliscopes;
 
@@ -235,6 +236,16 @@ public class MainApplication extends Application{
         .my-entry{
             outline-width: 0px;
         }
+        .app-version {
+            border-radius: 100px;
+            padding-left: 18px;
+            padding-right: 18px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+        .app-version label {
+            margin: 0px;
+        }
             """+(this.getStyleManager().getDark()?"":"""
         .myshortcut{
             background: #ffffff;
@@ -279,5 +290,9 @@ public class MainApplication extends Application{
 
     public void reset(){
         drawingArea.reset();
+    }
+
+    public Window getWindow() {
+        return window;
     }
 }
