@@ -2,8 +2,10 @@ package gui;
 
 import ch.bailu.gtk.adw.ActionRow;
 import ch.bailu.gtk.adw.PreferencesRow;
+import ch.bailu.gtk.adw.ToastOverlay;
 import ch.bailu.gtk.gtk.Align;
 import ch.bailu.gtk.gtk.Box;
+import ch.bailu.gtk.gtk.Expander;
 import ch.bailu.gtk.gtk.FileChooserAction;
 import ch.bailu.gtk.gtk.FileChooserDialog;
 import ch.bailu.gtk.gtk.ListBox;
@@ -117,14 +119,12 @@ public class HamburgerMenu extends Popover {
         //box.append(new MenuButton("Preferences" , Align.START , ()->{}));
         box.append(new MenuButton("About" , Align.START , ()->{
             //new AboutDialog().show();
-            new MyAbout().run(Main.app.window);
+            new MyAbout().run(Main.app.window , "0.6.0");
         } , this));
 
         stack.setTransitionType(StackTransitionType.SLIDE_LEFT_RIGHT);
-
         //box.append(preferencesButton);
         //box.append(aboutButton);
-
         /* 
         Label preferencesLabel = new Label("Preferences");
         preferencesButton.setChild(preferencesLabel);

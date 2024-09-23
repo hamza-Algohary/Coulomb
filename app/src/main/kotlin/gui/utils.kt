@@ -12,6 +12,14 @@ import ch.bailu.gtk.gtk.HeaderBar
 import ch.bailu.gtk.gtk.ListBox
 import ch.bailu.gtk.gtk.ListBoxRow
 import ch.bailu.gtk.gtk.GestureClick;
+import ch.bailu.gtk.gtk.Stack
+import ch.bailu.gtk.gtk.Expander
+import ch.bailu.gtk.adw.ToastOverlay
+import ch.bailu.gtk.adw.Toast
+import graphics.Color
+
+public var toastOverlay = ToastOverlay()
+public var mainStack = Stack()
 
 public fun <T : Widget> T.margins(top : Int , start : Int = top , bottom : Int = top , end : Int = start) = this.apply {
     setMarginTop(top)
@@ -49,6 +57,15 @@ public fun ListBox.children(vararg widgets : Widget) = this.apply {
     widgets.forEach { append(rowBox(it)) }
 }
 
+public fun ToastOverlay.child(child : Widget) = this.apply {
+    toastOverlay = this
+    setChild(child)
+}
+
+public fun ToastOverlay.sendToast(title : String) = this.apply {
+    this.addToast(Toast(title))
+}
+
 public fun rowBox(child : Widget) = ListBoxRow().sizeRequest(-1, 50).apply {
     setChild(child)
 }
@@ -69,11 +86,16 @@ public fun <T : Widget> T.onClick(action : ()->Unit) = this.apply {
 public fun HeaderBar.children(vararg widgets : Widget) = this.apply {
     widgets.forEach { packStart(it) }
 }
+public fun Stack.child(child : Widget) = Stack().apply{
+    this.addChild(child)
+    this.setVisibleChild(child)
+}
 
 public fun WindowHandle.child(child : Widget) = this.apply{ this.setChild(child) }
 public fun Button.child(child : Widget) = this.apply{ this.setChild(child) }
 public fun ScrolledWindow.child(child : Widget) = this.apply{ this.setChild(child) }
 public fun Window.child(child : Widget) = this.apply{ this.setChild(child) }
+public fun Expander.child(child : Widget) = this.apply{ this.setChild(child) }
 
 public fun Window.defaultSize(width : Int , height : Int) = this.apply {
     this.setDefaultSize(width, height)
@@ -94,4 +116,8 @@ public operator fun <T : Widget> T.plus (block : T.() -> Unit) = this.apply {
 
 public operator fun Button.minus(handler : ()-> Unit) = this.apply {
     this.onClicked(handler)
+}
+
+public fun <T:Widget> T.shown() = this.apply {
+    show()
 }

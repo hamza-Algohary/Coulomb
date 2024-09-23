@@ -172,4 +172,9 @@ public class Color{
     public static void launch_uri(String uri) {
         Gtk.showUri(Main.app.getWindow(), new Str(uri), GdkConstants.CURRENT_TIME);
     }
+
+    public static void copyToClipboard(String text) {
+        Main.app.getWindow().getClipboard().setText(text);
+    }
+
 } 

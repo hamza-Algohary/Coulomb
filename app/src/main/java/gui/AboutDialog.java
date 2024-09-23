@@ -29,7 +29,7 @@ public class AboutDialog extends ch.bailu.gtk.gtk.AboutDialog{
         this.setSizeRequest(200, 400);
     }
 
-    final String LICENSE = """
+    public static final String LICENSE = """
         GNU GENERAL PUBLIC LICENSE
         Version 3, 29 June 2007
 
