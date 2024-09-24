@@ -37,7 +37,7 @@ public fun aboutDialog(parentWindow : Window , version : String) {
         Label("Code by").cssClasses("title-4").halign(Align.START).hexpand(true),
         hbox(0).children(Label("Hamza Algohary").halign(Align.START).margins(20,10)).cssClasses("card").sizeRequest(-1, 50).hexpand(true),
         Label("Icon Design").cssClasses("title-4").halign(Align.START).hexpand(true),
-        hbox(0).children(Label("Alhussien Algohary").halign(Align.START).margins(20,10)).cssClasses("card").sizeRequest(-1, 50).hexpand(true)
+        hbox(0).children(Label("Alhusain Algohary").halign(Align.START).margins(20,10)).cssClasses("card").sizeRequest(-1, 50).hexpand(true)
     ).shown()
 
     val licensePage = vbox(10).margins(12).children(
