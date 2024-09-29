@@ -16,7 +16,7 @@ import gui.Platform;
 public class Resource {
 
     public static final String PREFIX = System.getProperty("java.io.tmpdir")+(Platform.isLinux()?"/":"")+"coulomb"; 
-    public static final int resources_version = 2;
+    public static final int resources_version = 3;
     /* Create a file with all its parent directories.  */
     public static FileOutputStream createDeepFile(String path) throws FileNotFoundException {
         new File(new File(path).getParent()).mkdirs();
@@ -88,7 +88,7 @@ public class Resource {
 
             if(!status_file_exists || version != resources_version) {
                 extractWindowsLibraries();
-                extractRasterIcons(); 
+                //extractRasterIcons(); 
             } 
 
             status_file.createNewFile();

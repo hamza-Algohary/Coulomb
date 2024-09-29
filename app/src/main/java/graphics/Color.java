@@ -100,6 +100,12 @@ public class Color{
         }
     }
 
+    public static Pixbuf pixbufFromResourceRaster(String path) throws IOException , AllocationError  {
+        try (var inputStream = new JavaResource(Color.icon_raster(path)).asStream()) {
+            return ch.bailu.gtk.lib.bridge.Image.load(inputStream);
+        }
+    }
+
     public static void initImage(Image image , String name) throws Exception {
         // if(Platform.isWindows()) {
         //     String target = Resource.PREFIX + Color.icon_raster(name);
@@ -116,6 +122,7 @@ public class Color{
             String target = Resource.PREFIX + Color.icon_raster(name);
             //Platform.extractResource("/win"+Color.icon_png(name), target);
             image.setFromFile(target);
+            //image.setFromPixbuf(Color.pixbufFromResourceRaster(name));
         } else {
             image.setFromPixbuf(Color.pixbufFromResource(name,size));
         }

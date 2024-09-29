@@ -113,8 +113,7 @@ public class StackContainer extends DrawingArea {
             if(autoCenterOn()){
                 autoCenter(context, width, height);
             }
-            context.translate(shift.x, shift.y);
-            scale(context);
+
 
             //scalingCenter = new Point((int)scalingCenter.x , (int)scalingCenter.y);
             //context.translate(scalingCenter.x, scalingCenter.y);
@@ -129,6 +128,16 @@ public class StackContainer extends DrawingArea {
             context.setSourceRgba(bg.red, bg.green, bg.blue, bg.alpha);
             context.paint();
 
+            MyContext con = new MyContext(context);
+            con.moveTo(20, height - 20);
+            //con.moveTo(width/2.0, height/2.0);
+            con.setSource(Color.SHARPER_FOREGROUND_COLOR);
+            con.setFontSize(18);
+            con.showText(message);
+
+            context.translate(shift.x, shift.y);
+            scale(context);
+
             for (int i = components.size() - 1; i >= 0; i--) {
                 components.get(i).onDraw(context);
             }
@@ -137,11 +146,9 @@ public class StackContainer extends DrawingArea {
                 components.get(i).drawAdditionalInfo(context);
             }
 
-            MyContext con = new MyContext(context);
-            con.moveTo(20, height - 20);
-            con.setSource(Color.SHARPER_FOREGROUND_COLOR);
-            con.showText(message);
-            con.newPath();
+
+            //con.newPath();
+            //con.fill();
 
 
 
@@ -338,6 +345,7 @@ public class StackContainer extends DrawingArea {
 
     public void setMessage(String message) {
         this.message = message;
+        this.queueDraw();
     }
 
     public void clearComponents() {

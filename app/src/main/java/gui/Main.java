@@ -128,7 +128,10 @@ public class Main {
                 if(currentError != null){
                     app.headerBar.runButton.running = false;
                     app.headerBar.runButton.updateSettings();
-                    app.drawingArea.setMessage("Can't solve this circuit.");
+                    if(app.drawingArea.components.size() != 0)
+                        app.drawingArea.setMessage("Can't solve this circuit.");
+                    else
+                        app.drawingArea.setMessage("");
                     currentError.printStackTrace();
                     currentError = null;
                 }

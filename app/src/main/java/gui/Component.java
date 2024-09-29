@@ -326,6 +326,7 @@ public class Component {
 
     }
     protected void drawLabel(MyContext context , double componentSize){
+        context.setFontSize(12);
         context.moveTo(new Point(-componentSize/2 , -componentSize/1.25 - 16));
         context.showText(name);
         context.moveTo(new Point(-componentSize/2 , -componentSize/2 - 16));
