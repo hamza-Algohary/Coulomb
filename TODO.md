@@ -12,6 +12,7 @@
 - [X] Put the Coulomb logo everywhere.
 - [X] Add credits and inspiration to the README.
 - [X] Make a one time popup to explain problems in that release/ or may be have a setting for unstable features, or may be something else.
+- [ ] Solve Windows issues.
 - [ ] Prepare for packaging as MSI, flatpak and maybe others, in addition to the jar of course.
 - [ ] Make release script, and release notes.
 - [ ] Release.
