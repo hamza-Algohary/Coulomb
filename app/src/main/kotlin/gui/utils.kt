@@ -105,7 +105,7 @@ public fun Window.title(title : String) = this.apply {
     this.setTitle(title)
 }
 
-public fun Window.titlebar(titlebar : Widget) = this.apply {
+public fun Window.titlebar(titlebar : Widget?) = this.apply {
     this.setTitlebar(titlebar)
 }
 

@@ -3,6 +3,8 @@ package gui;
 import java.util.function.Function;
 import ch.bailu.gtk.adw.Application;
 import ch.bailu.gtk.adw.ColorScheme;
+import ch.bailu.gtk.gtk.MessageDialog;
+import ch.bailu.gtk.gtk.MessageType;
 import ch.bailu.gtk.gdk.Gdk;
 import ch.bailu.gtk.gdk.GdkConstants;
 import ch.bailu.gtk.gdk.RGBA;
@@ -10,8 +12,11 @@ import ch.bailu.gtk.gio.ApplicationFlags;
 import ch.bailu.gtk.gtk.Align;
 import ch.bailu.gtk.gtk.ApplicationWindow;
 import ch.bailu.gtk.gtk.Box;
+import ch.bailu.gtk.gtk.ButtonsType;
 import ch.bailu.gtk.gtk.CssProvider;
+import ch.bailu.gtk.gtk.DialogFlags;
 import ch.bailu.gtk.gtk.EventControllerKey;
+import ch.bailu.gtk.gtk.GtkConstants;
 import ch.bailu.gtk.gtk.Orientation;
 import ch.bailu.gtk.gtk.StyleContext;
 import ch.bailu.gtk.gtk.Window;
@@ -111,7 +116,11 @@ public class MainApplication extends Application{
 
             window.show();
 
-        });
+            new MyMessageDialog().run(window); 
+//             new MessageDialog(window, DialogFlags.MODAL , MessageType.INFO , ButtonsType.OK , """ 
+// 1. Circuits containing non-linear devices will most probably not be solvable, because the current backend is not good at dealing with non-linear systems, that's going to change though.
+// 2. Due to the way inductors and capacitors are modeled you can't put two inductors in series, or two capacitors in parallel, that's also going to be fixed.""").show();
+         });
 
     }
 
