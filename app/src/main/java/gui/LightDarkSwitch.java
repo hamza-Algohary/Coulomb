@@ -15,7 +15,7 @@ import graphics.Point;
 public class LightDarkSwitch extends Box{
     public class Selector extends DrawingArea{
         int scheme = 0;
-        Selector(Color color1 , Color color2 , int colorScheme){
+        Selector(Color color1 , Color color2 , Color outer_color , int colorScheme){
             this.scheme = colorScheme;
             this.setDrawFunc( (cb, self, c, width, height, userData) -> {
                 width = height;
@@ -52,8 +52,8 @@ public class LightDarkSwitch extends Box{
 
                 if(selected)
                     context.circle(new Point(width/2d , height/2d), width/2d - linewidth , new Color(212/255d, 90/255d, 33/255d , 1) , linewidth);
-                else if(color1 != color2 && !Main.app.getStyleManager().getDark())
-                    context.circle(new Point(width/2d , height/2d), width/2d - linewidth, Color.DARK , 1);
+                else //if(color1 != color2 && !Main.app.getStyleManager().getDark())
+                    context.circle(new Point(width/2d , height/2d), width/2d+1 - linewidth, outer_color , 1);
                 
                 //context.circle(new Point(width/2d , height/2d), width/2d - linewidth , selected ? new Color(212/255d, 90/255d, 33/255d , 1) : Color.FOREGROUND_COLOR, selected?linewidth:1);
 
@@ -88,9 +88,9 @@ public class LightDarkSwitch extends Box{
         }
     }
 
-    Selector lightSelector = new Selector(Color.LIGHT , Color.LIGHT , ColorScheme.FORCE_LIGHT);
-    Selector darkSelector = new Selector(Color.LIGHT , Color.DARK , ColorScheme.PREFER_LIGHT);
-    Selector systemSelector = new Selector(Color.DARK , Color.DARK , ColorScheme.FORCE_DARK);
+    Selector lightSelector = new Selector(Color.LIGHT , Color.LIGHT , new Color(58/255d,58/255d,58/255d) , ColorScheme.FORCE_LIGHT);
+    Selector darkSelector = new Selector(Color.DARK , Color.DARK , Color.DARK , ColorScheme.FORCE_DARK);
+    Selector systemSelector = new Selector(Color.LIGHT , Color.DARK , Color.DARK , ColorScheme.PREFER_LIGHT);
 
     //Button lightSelector = Button.newWithLabelButton("L");
     //Button darkSelector = Button.newWithLabelButton("D");
@@ -107,8 +107,8 @@ public class LightDarkSwitch extends Box{
 
         this.addCssClass("auto");
 
-        this.append(darkSelector);
-        this.append(lightSelector);
         this.append(systemSelector);
+        this.append(lightSelector);
+        this.append(darkSelector);
     }
 }
