@@ -159,7 +159,7 @@ public class MainApplication extends Application{
     //     }
     // }
 
-    public void updateSettings(){
+    public synchronized void updateSettings(){
         loadStyle();
         RGBA background = new RGBA();
         RGBA foreground = new RGBA();
@@ -186,14 +186,14 @@ public class MainApplication extends Application{
         window.getStyleContext().lookupColor("purple_"+n, hover);
 
         //Color.RED = new Color(red);
-        Color.BACKGROUND_COLOR = new Color(background);
+        Color.BACKGROUND_COLOR = new Color(0,0,0,0);//new Color(background);
         //Color.FOREGROUND_COLOR = new Color(foreground);
-        Color.SHARPER_FOREGROUND_COLOR = new Color(foreground);
+        //Color.SHARPER_FOREGROUND_COLOR = new Color(foreground);
         
         if(this.getStyleManager().getDark()){
             Color.FOREGROUND_COLOR = new Color(129.0/255,126.0/255,126.0/255 , 1);
         }else{
-            Color.FOREGROUND_COLOR = new Color(foreground);
+            Color.FOREGROUND_COLOR = new Color(0.196,0.196,0.196);//new Color(foreground);
         }
 
         //Color.SHARPER_FOREGROUND_COLOR = 

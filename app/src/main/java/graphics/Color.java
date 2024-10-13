@@ -53,9 +53,9 @@ public class Color{
     public static Color NEGATIVE_POTENTIAL = new Color(0.8, 0, 0.1, 1); // Reddish
     public static Color ELECTRON_COLOR = new Color(1.0 , 1.0 , 0 , 1);//new Color(0 , 0.478 , 0.8 , 1); //#007acc
 
-    public static Color BACKGROUND_COLOR = new Color(0.98, 0.98, 0.98, 1); // White
-    public static Color FOREGROUND_COLOR = new Color(0.2, 0.2, 0.2, 1);
-    public static Color SHARPER_FOREGROUND_COLOR = new Color(0.2, 0.2, 0.2, 1);
+    public static volatile Color BACKGROUND_COLOR = new Color(0.98, 0.98, 0.98, 1); // White
+    public static volatile Color FOREGROUND_COLOR = new Color(0.2, 0.2, 0.2, 1);
+    //public static volatile Color SHARPER_FOREGROUND_COLOR = new Color(0.2, 0.2, 0.2, 1);
     //public static Color SWITCH_COLOR = new Color(1, 1, 1, 1); // White
     public static Color HOVER_COLOR = new Color(0.9 , 0.1 , 0.8 , 1);
     public static Color RED = new Color(0.9 , 0.1 , 0.1 , 1);
@@ -68,6 +68,14 @@ public class Color{
 
     public void print(String name){
         System.out.println(name + " = (" + red + " , " + green + " , " + blue + ")");
+    }
+
+    public static Color background() {
+        return BACKGROUND_COLOR;
+    }
+
+    public static Color foreground() {
+        return FOREGROUND_COLOR;
     }
 
     public static String colorScheme() {

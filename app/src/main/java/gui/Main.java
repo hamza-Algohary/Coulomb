@@ -3,8 +3,11 @@ package gui;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.bailu.gtk.adw.StyleManager;
+import ch.bailu.gtk.gdk.Display;
 import ch.bailu.gtk.glib.Glib;
 import ch.bailu.gtk.glib.GlibConstants;
+import ch.bailu.gtk.gtk.StyleProvider;
 import ch.bailu.gtk.type.Strs;
 import circuitsimulator.CircuitSimulator;
 import circuitsimulator.Device;
@@ -97,6 +100,12 @@ public class Main {
 
             workerThread.start();
 
+            app.getStyleManager().onNotify( (specs)->{
+                app.updateSettings();
+                System.out.println("Theme changed.");
+                // app.updateSettings();
+            });
+
             return null;
         });
 
@@ -146,13 +155,26 @@ public class Main {
         }, null);
 
         //Animation & Settings
-        Glib.timeoutAdd(Component.FrameDurationMilliSeconds, (cb, user_data) -> {
-            if(last_was_dark != app.getStyleManager().getDark()){
-                last_was_dark = app.getStyleManager().getDark();
-                app.updateSettings();
-            }
-            return GlibConstants.SOURCE_CONTINUE;
-        }, null);
+        // Glib.timeoutAdd(50, (cb, user_data) -> {
+        //     if(last_was_dark != app.getStyleManager().getDark()){
+        //         last_was_dark = app.getStyleManager().getDark();
+        //         app.updateSettings();
+        //     }
+        //     return GlibConstants.SOURCE_CONTINUE;
+        // }, null);
+
+        // app.getStyleManager().connectSignal("notify::color-scheme", new com.sun.jna.Callback() {
+        //     public void callback() {
+        //         app.updateSettings(); // It appears that the stylecontext gets updated slower than StyleManager.
+        //     }
+        // });
+
+
+        // app.getStyleManager().onNotify( (ParamSpec specs)->{
+        //     app.updateSettings();
+        //     System.out.println("Theme changed.");
+        //     app.updateSettings();
+        // });
 
         var result = app.run(args.length, new Strs(args));
         exit = true;

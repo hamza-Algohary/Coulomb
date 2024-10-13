@@ -30,7 +30,8 @@ public class Oscilliscope extends DrawingArea {
 
         this.setDrawFunc((cb, self, c, width, height, userData) -> {
             MyContext context = new MyContext(c);
-            context.setSource(Color.BACKGROUND_COLOR);
+            //context.setSource(Color.BACKGROUND_COLOR);
+            context.setSource(new Color(0,0,0,0));
             context.paint();
 
             context.line(new Point(0, height / 2d), new Point(width, height / 2d), Color.FOREGROUND_COLOR); // X-axis

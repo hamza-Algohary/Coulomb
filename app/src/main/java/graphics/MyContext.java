@@ -2,6 +2,7 @@ package graphics;
 
 import ch.bailu.gtk.cairo.Context;
 import ch.bailu.gtk.cairo.LineCap;
+import ch.bailu.gtk.cairo.Operator;
 import ch.bailu.gtk.cairo.Pattern;
 import ch.bailu.gtk.type.PointerContainer;
 
@@ -12,6 +13,7 @@ public class MyContext extends Context{
     public MyContext(Context context){
         this(new PointerContainer(context.asCPointer()));
         this.setLineCap(LineCap.ROUND);
+        this.setOperator(Operator.SOURCE);
     }
     public void setSource(Color color){
         this.setSourceRgba(color.red, color.green , color.blue , color.alpha);

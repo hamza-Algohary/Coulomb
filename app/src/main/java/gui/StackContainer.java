@@ -124,14 +124,14 @@ public class StackContainer extends DrawingArea {
 
             //context.translate(-scalingCenter.x, -scalingCenter.y);
 
-            var bg = Color.BACKGROUND_COLOR;
+            var bg = new Color(0,0,0,0);//Color.BACKGROUND_COLOR;
             context.setSourceRgba(bg.red, bg.green, bg.blue, bg.alpha);
             context.paint();
 
             MyContext con = new MyContext(context);
             con.moveTo(20, height - 20);
             //con.moveTo(width/2.0, height/2.0);
-            con.setSource(Color.SHARPER_FOREGROUND_COLOR);
+            con.setSource(Color.FOREGROUND_COLOR);
             con.setFontSize(18);
             con.showText(message);
 
