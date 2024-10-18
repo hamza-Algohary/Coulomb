@@ -19,6 +19,7 @@ plugins {
     kotlin("jvm") version "2.0.20"
     application
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    //id("org.graalvm.buildtools.native") version "0.10.3"
 
 }
 
@@ -113,26 +114,26 @@ fun unzip(zipFilePath : String, destDir : String) {
     }
 }
 
-tasks.register<DefaultTask>("downloadWindowsLibs") {
-    doFirst {
-        var done_file_path_str = "app/src/main/resources/lib/dlls-done"
-        val lib_dir = File("app/src/main/resources/lib/")
+// tasks.register<DefaultTask>("downloadWindowsLibs") {
+//     doFirst {
+//         var done_file_path_str = "app/src/main/resources/lib/dlls-done"
+//         val lib_dir = File("app/src/main/resources/lib/")
 
-        if(!File(done_file_path_str).exists()) {
-            if (lib_dir.exists()) {
-                lib_dir.deleteRecursively()
-            }
-            lib_dir.mkdirs()
-            uri("https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-win.zip").toURL().openStream().use { it.copyTo(FileOutputStream(File("app/src/main/resources/lib/win.zip"))) }            
-            unzip("app/src/main/resources/lib/win.zip" , "app/src/main/resources/lib/win")
-            File("app/src/main/resources/lib/win.zip").delete()
-            File(done_file_path_str).writeText("")   
-        }
-    }
-}
+//         if(!File(done_file_path_str).exists()) {
+//             if (lib_dir.exists()) {
+//                 lib_dir.deleteRecursively()
+//             }
+//             lib_dir.mkdirs()
+//             uri("https://github.com/hamza-Algohary/gtk-native-binaries/releases/download/v0.1/gtk4-win.zip").toURL().openStream().use { it.copyTo(FileOutputStream(File("app/src/main/resources/lib/win.zip"))) }            
+//             unzip("app/src/main/resources/lib/win.zip" , "app/src/main/resources/lib/win")
+//             File("app/src/main/resources/lib/win.zip").delete()
+//             File(done_file_path_str).writeText("")   
+//         }
+//     }
+// }
 
 tasks.register<Resources>("resources") {
-    dependsOn("downloadWindowsLibs")
+
 }
 
 tasks.build {

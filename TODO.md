@@ -1,9 +1,4 @@
 # To Do
-### Issues
-- [ ] Maximizing/unmaximizing or showing another window on Windows causes flickering.
-- [ ] Launching URLs doesn't work on Windows.
-- [ ] Coulomb's logo on Windows is low resolution.
-
 ### Version 0.6
 - [X] Make windows icons load from resources if possible. (Didn't work)
 - [X] Make sure to load bigger icons on HiDpi screens, needs another version for the PNGs.
@@ -12,14 +7,15 @@
 - [X] Put the Coulomb logo everywhere.
 - [X] Add credits and inspiration to the README.
 - [X] Make a one time popup to explain problems in that release/ or may be have a setting for unstable features, or may be something else.
-- [ ] Solve Windows issues.
-- [ ] Prepare for packaging as MSI, flatpak and maybe others, in addition to the jar of course.
+- [ ] Prepare for packaging as flatpak and maybe others, in addition to the jar of course.
 - [ ] Make release script, and release notes.
 - [ ] Release.
 - [ ] Announce somewhere I guess.
 
 ### Version 0.7
 - [ ] Migrate frontend to kotlin.
+    - [ ] Get rid of all Windows support hacks and resources.
+    - [ ] Try using java-gi instead of java-gtk.
 - [ ] Revamp the backend?
 
 ### Version 0.8
