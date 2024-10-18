@@ -8,7 +8,7 @@
 </a>
 <h3 style="font-size:26px" align="center">Coulomb</h3>
 <p align="center">
-    A simple and beautiful cross-platform circuit simulator.
+    A simple and beautiful circuit simulator app for Linux.
 <br/> <br/>
 </p>
 </div>
