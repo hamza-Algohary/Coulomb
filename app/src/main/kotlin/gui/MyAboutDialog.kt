@@ -100,7 +100,7 @@ public fun aboutDialog(parentWindow : Window , version : String) {
                                         Icon("external-link").halign(Align.END)
                                     )
                                 ).cssClasses("card" , "activatable").margins(3,0).onClick {
-                                    Color.launch_uri("https://github.com/hamza-Algohary/Coulomb")
+                                    Platform.launch_url("https://github.com/hamza-Algohary/Coulomb")
                                 },
 
                                 rowBox(
@@ -109,7 +109,7 @@ public fun aboutDialog(parentWindow : Window , version : String) {
                                         Icon("external-link").halign(Align.END)
                                     )
                                 ).cssClasses("card" , "activatable").margins(3,0).onClick {
-                                    Color.launch_uri("https://github.com/hamza-Algohary/Coulomb/issues")
+                                    Platform.launch_url("https://github.com/hamza-Algohary/Coulomb/issues")
                                 } ,
 
                                 ListBox().cssClasses("boxed-list","header").children(

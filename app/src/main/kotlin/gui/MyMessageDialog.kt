@@ -12,6 +12,11 @@ class MyMessageDialog {
 }
 
 public fun messageDialog (parent_window : Window) {
+    var message = "• Simlulation of circuits involving capacitors and inductors may not be accurate, sometimes completely wrong.\n\n• Currently you can't connect two capacitors in parallel nor two inductors in series.\n\n• Most of circuits with non linear devices can't be calculated.\n\n• The reason for the above is that inductors and capacitors are modeled as current sources and batteries respectively. Also the backend currently is not good at solving non-linear equations."
+    if (Platform.isWindows()) {
+        message = message.replace('•', '-')
+    }
+
     Window().title("Important Notes").defaultSize(400, -1) + window@{
         titlebar(
             HeaderBar().cssClasses("flat").apply{
@@ -20,7 +25,7 @@ public fun messageDialog (parent_window : Window) {
         )
         child(
             vbox(10).margins(0 , 20 , 20 , 20).children(
-                Label("• Simlulation of circuits involving capacitors and inductors may not be accurate, sometimes completely wrong.\n\n• Currently you can't connect two capacitors in parallel nor two inductors in series.\n\n• Most of circuits with non linear devices can't be calculated.\n\n• The reason for the above is that inductors and capacitors are modeled as current sources and batteries respectively. Also the backend currently is not good at solving non-linear equations.").apply { wrap = true },
+                Label(message).apply { wrap = true },
                 Button.newWithLabelButton("Ok").cssClasses("suggested-action") - {
                     this@window.hide()
                 }

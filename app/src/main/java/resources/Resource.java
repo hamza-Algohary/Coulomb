@@ -70,8 +70,10 @@ public class Resource {
         extractResourcesDirectory("/icons/raster");
     }
 
+    public static String JnaLibraryPathForWindows = PREFIX + "/lib/win";
+
     public static void setJnaLibraryPathForWindows() {
-        System.setProperty("jna.library.path", PREFIX + "/lib/win");
+        System.setProperty("jna.library.path" , JnaLibraryPathForWindows);
     }
 
     public static void extractWindowsResources() {

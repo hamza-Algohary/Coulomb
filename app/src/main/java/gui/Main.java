@@ -3,17 +3,14 @@ package gui;
 
 import java.util.concurrent.TimeUnit;
 
-import ch.bailu.gtk.adw.StyleManager;
-import ch.bailu.gtk.gdk.Display;
 import ch.bailu.gtk.glib.Glib;
 import ch.bailu.gtk.glib.GlibConstants;
-import ch.bailu.gtk.gtk.StyleProvider;
 import ch.bailu.gtk.type.Strs;
 import circuitsimulator.CircuitSimulator;
 import circuitsimulator.Device;
-//import circuitsimulator.CircuitSimulator.NON_CONVERGANCE;
 
 public class Main {
+    
     public static MainApplication app;
     public static CircuitSimulator simulator = new CircuitSimulator();
     public static int sample_frequency = 100;

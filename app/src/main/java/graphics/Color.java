@@ -7,7 +7,6 @@ import ch.bailu.gtk.gdk.GdkConstants;
 import ch.bailu.gtk.gdk.Paintable;
 import ch.bailu.gtk.gdk.RGBA;
 import ch.bailu.gtk.gdkpixbuf.Pixbuf;
-import ch.bailu.gtk.glib.Uri;
 import ch.bailu.gtk.gtk.Gtk;
 import ch.bailu.gtk.gtk.Image;
 import ch.bailu.gtk.lib.util.JavaResource;

@@ -2,6 +2,9 @@ package gui;
 
 import java.util.Locale;
 
+import ch.bailu.gtk.gdk.GdkConstants;
+import ch.bailu.gtk.gtk.Gtk;
+import ch.bailu.gtk.type.Str;
 import resources.Resource;
 
 public class Platform {
@@ -30,6 +33,21 @@ public class Platform {
         } else if (isMac()) {
             System.out.println("Mac Detected");
         }
+    }
+
+    public static void launch_url(String url) {
+        //if (isLinux()) {
+            Gtk.showUri(Main.app.getWindow(), new Str(url), GdkConstants.CURRENT_TIME);
+        // } else if (isWindows()) {
+        //     try{
+        //         String [] command = {"start",url};
+        //         new ProcessBuilder(command).start();
+        //     }catch (Exception e) {
+        //         e.printStackTrace();
+        //         System.out.println("Unable to launch URI");
+        //     }
+        // }
+
     }
 
     /* 
