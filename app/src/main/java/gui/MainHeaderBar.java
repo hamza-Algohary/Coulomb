@@ -24,6 +24,7 @@ public class MainHeaderBar extends WindowHandle {
     public static int headerbarChildrenMargin = 7;
 
     MainHeaderBar(){
+        this.addCssClass("flat");
         box.append(startBox);
         
         addResetButton();
