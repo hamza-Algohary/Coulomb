@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 import gui.Platform;
 
-
-
 public class Resource {
 
     public static final String PREFIX = System.getProperty("java.io.tmpdir")+(Platform.isLinux()?"/":"")+"coulomb"; 
