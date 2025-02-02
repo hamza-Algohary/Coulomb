@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Coulomb
+GenericName=Circuit Simulator
+Exec=coulomb
+Type=Application
+Icon=io.github.hamza_algohary.Coulomb
+Categories=Science;Education
+Comment=Electronic Circuit Simulation Software For Linux

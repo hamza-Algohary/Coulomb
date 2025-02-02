@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>io.github.hamza_algohary.Coulomb</id>
+    <name>Coulomb</name>
+    <summary>Electronic Circuit Simulation Software For Linux</summary>
+    <icon type="stock">io.github.hamza_algohary.Coulomb</icon>
+    <icon type="remote">https://github.com/hamza-Algohary/Coulomb/raw/main/app/src/main/resources/icons/vector/dark/coulomb.svg</icon>
+    <metadata_license>MIT</metadata_license>
+    <project_license>GPL-3.0-or-later</project_license>
+    <content_rating type="oars-1.0" />
+    <developer id="io.github.hamza_algohary">
+        <name>Hamza Algohary</name>
+    </developer>
+    <url type="homepage">https://github.com/hamza-Algohary/Coulomb</url>
+    <url type="vcs-browser">https://github.com/hamza-Algohary/Coulomb</url>
+    <requires>
+        <control>keyboard</control>
+        <display_length compare="ge">768</display_length>
+    </requires>
+    <recommends>
+        <control>pointing</control>
+    </recommends>
+    <description>
+        <p>
+            Coulomb is a simple and elegant circuit simulator written using Java, Gtk4 and
+            libadwaita.
+        </p>
+        <p>Features:</p>
+        <ul>
+            <li>Draw arbitrary circuits</li>
+            <li>Plot voltage and current of devices against time</li>
+            <li>Save/Load circuits</li>
+            <li>Dark Mode support</li>
+            <li>Beautiful UI</li>
+        </ul>
+        <p>Available Devices:</p>
+        <ul>
+            <li>Resistor</li>
+            <li>Battery</li>
+            <li>Current Source</li>
+            <li>AC Voltage Source</li>
+            <li>Inductor</li>
+            <li>Capacitor</li>
+            <li>Diode</li>
+            <li>Zener Diode</li>
+        </ul>
+        <p>Problems:</p>
+        <ul>
+            <li>Circuits containing non-linear devices will most probably not be solvable, because
+                the current backend is not good at dealing with non-linear systems, that&apos;s
+                going to change though.</li>
+            <li>Due to the way inductors and capacitors are modeled you can&apos;t put two inductors
+                in series, or two capacitors in parallel, that&apos;s also going to be fixed.</li>
+        </ul>
+
+    </description>
+    <releases>
+        <release version="0.6.0" date="2024-12-2">
+            <description>
+                Made necessary changes for flatpak support, making use of portals, and adding a
+                proper app ID.
+            </description>
+        </release>
+    </releases>
+    <launchable type="desktop-id">io.github.hamza_algohary.Coulomb.desktop</launchable>
+    <categories>
+        <category>Science</category>
+        <category>Education</category>
+    </categories>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/rlc.png?raw=true</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/double-clipper.png?raw=true</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/led.png?raw=true</image>
+        </screenshot>
+        <screenshot>
+            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/zener-light.png?raw=true</image>
+        </screenshot>
+    </screenshots>
+</component>
