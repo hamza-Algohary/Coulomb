@@ -51,6 +51,12 @@ cd Coulomb
 ```
 ./gradlew run
 ```
+> [!NOTE]
+> You can also build the flatpak package and run it:
+> ```
+> make
+> make run
+> ```
 
 ## Credits
 - Coulomb's backend uses [Efficient Java Matrix Library](https://github.com/lessthanoptimal/ejml) for solving linear systems.
