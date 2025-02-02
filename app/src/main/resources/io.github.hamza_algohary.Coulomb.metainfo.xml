@@ -2,7 +2,7 @@
 <component type="desktop-application">
     <id>io.github.hamza_algohary.Coulomb</id>
     <name>Coulomb</name>
-    <summary>Electronic Circuit Simulation Software For Linux</summary>
+    <summary>Electronic circuit simulator</summary>
     <icon type="stock">io.github.hamza_algohary.Coulomb</icon>
     <icon type="remote">https://github.com/hamza-Algohary/Coulomb/raw/main/app/src/main/resources/icons/vector/dark/coulomb.svg</icon>
     <metadata_license>MIT</metadata_license>
@@ -11,6 +11,10 @@
     <developer id="io.github.hamza_algohary">
         <name>Hamza Algohary</name>
     </developer>
+    <branding>
+        <color type="primary" scheme_preference="light">#62a0ea</color>
+        <color type="primary" scheme_preference="dark">#1a5fb4</color>
+    </branding>
     <url type="homepage">https://github.com/hamza-Algohary/Coulomb</url>
     <url type="vcs-browser">https://github.com/hamza-Algohary/Coulomb</url>
     <requires>
@@ -69,16 +73,20 @@
     </categories>
     <screenshots>
         <screenshot type="default">
-            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/rlc.png?raw=true</image>
+            <caption>Draw a circuit and press run</caption>
+            <image xml:lang="en">https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/flathub/double-clipper-light.png?raw=true</image>
         </screenshot>
         <screenshot>
-            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/double-clipper.png?raw=true</image>
+            <caption>Hover over a device to see its current and voltage</caption>
+            <image xml:lang="en">https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/flathub/ohm-light.png?raw=true</image>
         </screenshot>
         <screenshot>
-            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/led.png?raw=true</image>
+            <caption>Dark mode is supported</caption>
+            <image xml:lang="en">https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/flathub/led-dark.png?raw=true</image>
         </screenshot>
         <screenshot>
-            <image>https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/zener-light.png?raw=true</image>
+            <caption>Example circuits available</caption>
+            <image xml:lang="en">https://github.com/hamza-Algohary/Coulomb/blob/main/screenshots/flathub/zener-dark.png?raw=true</image>
         </screenshot>
     </screenshots>
 </component>
