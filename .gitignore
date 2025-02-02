@@ -1,4 +1,6 @@
 # Ignore Gradle project-specific cache directory
+org.flathub
+.flatpak-builder
 .gradle
 *.dll
 # Ignore Gradle build output directory
