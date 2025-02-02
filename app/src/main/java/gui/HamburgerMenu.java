@@ -3,18 +3,7 @@ package gui;
 import ch.bailu.gtk.adw.ActionRow;
 import ch.bailu.gtk.adw.PreferencesRow;
 import ch.bailu.gtk.adw.ToastOverlay;
-import ch.bailu.gtk.gtk.Align;
-import ch.bailu.gtk.gtk.Box;
-import ch.bailu.gtk.gtk.Expander;
-import ch.bailu.gtk.gtk.FileChooserAction;
-import ch.bailu.gtk.gtk.FileChooserDialog;
-import ch.bailu.gtk.gtk.ListBox;
-import ch.bailu.gtk.gtk.ListBoxRow;
-import ch.bailu.gtk.gtk.Orientation;
-import ch.bailu.gtk.gtk.Popover;
-import ch.bailu.gtk.gtk.ResponseType;
-import ch.bailu.gtk.gtk.Stack;
-import ch.bailu.gtk.gtk.StackTransitionType;
+import ch.bailu.gtk.gtk.*;
 
 public class HamburgerMenu extends Popover {
     Box box = new Box(Orientation.VERTICAL , 0);
@@ -64,12 +53,13 @@ public class HamburgerMenu extends Popover {
         box.append(new MySeparator());
 
         Runnable saveAs = ()->{
-            FileChooserDialog fileChooserDialog = new FileChooserDialog("Save circuit as" , Main.app.window , FileChooserAction.SAVE , new String("Save") , ResponseType.APPLY , new String("Cancel") , ResponseType.CANCEL);
+            //FileChooserDialog fileChooserDialog = new FileChooserDialog("Save circuit as" , Main.app.window , FileChooserAction.SAVE , new String("Save") , ResponseType.APPLY , new String("Cancel") , ResponseType.CANCEL);
+            FileChooserNative fileChooserDialog = new FileChooserNative("Save circuit as" , Main.app.window , FileChooserAction.SAVE , null , null);
             fileChooserDialog.setModal(true);
             fileChooserDialog.show();
             fileChooserDialog.onResponse((int response)->{
                 System.out.println("Saving....");
-                if(response == ResponseType.APPLY){
+                if(response == ResponseType.ACCEPT){
                     System.out.println("Really Saving....");
                     Main.app.drawingArea.saveAs(fileChooserDialog.asFileChooser().getFile().getPath().toString());
                 }
@@ -79,12 +69,13 @@ public class HamburgerMenu extends Popover {
         };
 
         Runnable open = ()->{
-            FileChooserDialog fileChooserDialog = new FileChooserDialog("Save circuit as" , Main.app.window , FileChooserAction.OPEN , new String("Open") , ResponseType.APPLY , new String("Cancel") , ResponseType.CANCEL);
+            //FileChooserDialog fileChooserDialog = new FileChooserDialog("Save circuit as" , Main.app.window , FileChooserAction.OPEN , new String("Open") , ResponseType.APPLY , new String("Cancel") , ResponseType.CANCEL);
+            FileChooserNative fileChooserDialog = new FileChooserNative("Choose a circuit" , Main.app.window , FileChooserAction.OPEN , null , null);
             fileChooserDialog.setModal(true);
             fileChooserDialog.show();
             fileChooserDialog.onResponse((int response)->{
                 System.out.println("Opening....");
-                if(response == ResponseType.APPLY){
+                if(response == ResponseType.ACCEPT){
                     Main.app.drawingArea.load(fileChooserDialog.asFileChooser().getFile().getPath().toString());
                 }
                 fileChooserDialog.hide();
