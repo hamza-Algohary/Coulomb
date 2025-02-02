@@ -13,9 +13,9 @@
 </p>
 </div>
 
-![](screenshots/rlc.png)
+![](screenshots/flathub/rlc-light.png)
 
-![](screenshots/zener-light.png)
+![](screenshots/flathub/zener-dark.png)
 
 ## Features
 - Draw arbitrary circuits
