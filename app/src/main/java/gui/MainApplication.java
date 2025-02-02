@@ -37,7 +37,7 @@ public class MainApplication extends Application{
 
     Function<Void,Void> onStart = (Void v)->{return null;};
     MainApplication(String args[]){
-        super("io.github.hamza_algohary.coulomb", ApplicationFlags.DEFAULT_FLAGS);
+        super("io.github.hamza_algohary.Coulomb", ApplicationFlags.DEFAULT_FLAGS);
         this.onActivate(()->{
             window = new ApplicationWindow(this);
             headerBar = new MainHeaderBar();
