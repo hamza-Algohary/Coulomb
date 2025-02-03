@@ -1,0 +1,4 @@
+[submodule "flathub"]
+	path = flathub
+	url = https://github.com/hamza-algohary/flathub
+	branch = my-app-submission

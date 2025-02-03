@@ -1,5 +1,5 @@
 builder:
-	flatpak-builder --user --install --disable-cache --repo=org.flathub app/build/flatpak io.github.hamza_algohary.Coulomb.yaml --force-clean
+	flatpak-builder --user --install --disable-cache --repo=org.flathub app/build/flatpak flathub/io.github.hamza_algohary.Coulomb.yaml --force-clean
 debug:
 	flatpak --log-session-bus run io.github.hamza_algohary.Coulomb
 run:
